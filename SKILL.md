@@ -15,10 +15,10 @@ Your personal knowledge repository. Capture fast, organize automatically, retrie
 
 **Before any action**, check if brainrepo is initialized:
 
-1. Look for `.brainrepo` marker file in common locations:
-   - `~/brainrepo/.brainrepo`
-   - `./brain/.brainrepo`
-   - Workspace `projects/second-brain/.brainrepo`
+1. Look for brain folder with expected structure (Inbox/, Projects/, Areas/):
+   - `~/brainrepo/`
+   - `./brain/`
+   - Workspace `projects/second-brain/`
 
 2. If NOT found → **Run onboarding automatically**
 3. If found → Proceed with user request
@@ -39,17 +39,12 @@ mkdir -p <path>/{Inbox,Projects,Areas/personal-growth,Areas/family,Notes,Resourc
    - `Areas/personal-growth/index.md` — personal growth area
    - `Areas/family/index.md` — family area
 
-4. Create marker file:
-```bash
-echo "initialized: $(date -I)" > <path>/.brainrepo
-```
-
-5. Initialize git (optional):
+4. Initialize git (optional):
 ```bash
 cd <path> && git init && git add -A && git commit -m "init: brainrepo"
 ```
 
-6. Confirm setup and show quick start commands
+5. Confirm setup and show quick start commands
 
 ## Core Concept
 
