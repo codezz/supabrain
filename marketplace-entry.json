@@ -1,0 +1,13 @@
+{
+  "name": "brainrepo",
+  "source": "https://github.com/codezz/brainrepo",
+  "owner": {
+    "name": "Gabriel Frățică",
+    "email": "gabriel@codez.ro",
+    "url": "https://github.com/codezz"
+  },
+  "description": "Personal knowledge repository — capture, organize, and retrieve everything using PARA + Zettelkasten. Works with Claude Code, OpenClaw, Obsidian, and any AI agent.",
+  "version": "1.0.0",
+  "tags": ["second-brain", "knowledge-management", "para", "zettelkasten", "obsidian", "productivity"],
+  "license": "MIT"
+}
