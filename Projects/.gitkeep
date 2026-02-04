@@ -1,0 +1,10 @@
+# Projects
+
+Active work with deadlines.
+
+Create a folder for each project:
+```
+Projects/
+└── my-project/
+    └── index.md
+```
