@@ -1,0 +1,63 @@
+{
+  "version": "1.0.0",
+  
+  "paths": {
+    "data_root": "~/brainrepo",
+    "content": "${data_root}/content",
+    "learning": "${data_root}/learning",
+    "observations": "${data_root}/learning/observations",
+    "instincts_personal": "${data_root}/learning/instincts/personal",
+    "instincts_inherited": "${data_root}/learning/instincts/inherited",
+    "evolved": "${data_root}/learning/evolved",
+    "meta": "${data_root}/learning/meta"
+  },
+  
+  "curator": {
+    "enabled": true,
+    "model": "haiku",
+    "interval_minutes": 5,
+    "auto_populate": {
+      "projects": true,
+      "people": true,
+      "areas": true,
+      "notes": true,
+      "journal": true,
+      "tasks": true
+    }
+  },
+  
+  "detection": {
+    "project_threshold": 1,
+    "people_threshold": 1,
+    "area_threshold": 3,
+    "pattern_threshold": 3,
+    "min_confidence": 0.7
+  },
+  
+  "instincts": {
+    "min_confidence": 0.3,
+    "auto_approve_threshold": 0.7,
+    "confidence_decay_rate": 0.05,
+    "evolution_threshold": 5
+  },
+  
+  "observer": {
+    "enabled": true,
+    "run_interval_minutes": 5,
+    "patterns_to_detect": [
+      "user_corrections",
+      "error_resolutions",
+      "repeated_workflows",
+      "tool_preferences",
+      "second_brain_usage"
+    ]
+  },
+  
+  "git": {
+    "auto_commit": true,
+    "commit_content": true,
+    "commit_learning_instincts": true,
+    "commit_learning_evolved": true,
+    "commit_observations": false
+  }
+}

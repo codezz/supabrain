@@ -1,23 +1,21 @@
-# OS
+# BrainRepo Plugin - .gitignore
+
+# User data (not part of plugin)
+# Users will have their own brainrepo data elsewhere
+data/
+*.jsonl
+
+# OS files
 .DS_Store
 Thumbs.db
 
-# Obsidian
-.obsidian/workspace.json
-.obsidian/workspace-mobile.json
-.obsidian/plugins/
-.obsidian/community-plugins.json
-.obsidian/hotkeys.json
-
-# Keep core Obsidian config
-!.obsidian/app.json
-!.obsidian/appearance.json
-!.obsidian/core-plugins.json
-
-# Temporary files
-*.tmp
-*.temp
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
 *~
 
-# Local overrides
-.local/
+# Temporary
+*.tmp
+*.log
