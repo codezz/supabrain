@@ -22,7 +22,7 @@ Or specific domain:
 
 ### 1. Check Clustering
 
-Read `~/brainrepo/learning/meta/clustering-flags.json`:
+Read `~/supabrain/learning/meta/clustering-flags.json`:
 
 ```json
 {
@@ -68,7 +68,7 @@ Which domain to evolve? (1, 2, or 'all')
 For selected domain, read all instincts:
 
 ```javascript
-const instincts = await loadInstincts(`~/brainrepo/learning/instincts/personal/${domain}/`);
+const instincts = await loadInstincts(`~/supabrain/learning/instincts/personal/${domain}/`);
 
 // Sort by confidence
 instincts.sort((a, b) => b.confidence - a.confidence);
@@ -108,7 +108,7 @@ if (domain === 'code-style' || domain === 'testing') {
 
 #### If type = 'skill':
 
-Create `~/brainrepo/learning/evolved/skills/{domain}-skill/`
+Create `~/supabrain/learning/evolved/skills/{domain}-skill/`
 
 **SKILL.md:**
 ```yaml
@@ -149,13 +149,13 @@ Based on {count} observations across {days} days:
 
 #### If type = 'agent':
 
-Create `~/brainrepo/learning/evolved/agents/{domain}-agent.md`
+Create `~/supabrain/learning/evolved/agents/{domain}-agent.md`
 
 Similar structure but designed for spawning as specialist agent.
 
 #### If type = 'command':
 
-Create `~/brainrepo/learning/evolved/commands/{domain}-command.md`
+Create `~/supabrain/learning/evolved/commands/{domain}-command.md`
 
 Command format for user invocation.
 
@@ -163,7 +163,7 @@ Command format for user invocation.
 
 In addition to executable artifact, create knowledge doc:
 
-`~/brainrepo/content/Notes/Meta/{domain}-patterns.md`
+`~/supabrain/content/Notes/Meta/{domain}-patterns.md`
 
 ```yaml
 ---
@@ -206,7 +206,7 @@ This knowledge emerged from {count} observed patterns over {days} days.
 ### 9. Commit (if enabled)
 
 ```bash
-cd ~/brainrepo
+cd ~/supabrain
 git add learning/evolved/ content/Notes/Meta/
 git commit -m "evolution: {domain} cluster evolved (${count} instincts)"
 git push  # if remote configured

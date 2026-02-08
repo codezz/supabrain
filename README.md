@@ -4,7 +4,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Claude Code](https://img.shields.io/badge/Claude-Code-7C3AED)](https://claude.ai/code)
-[![AI Ready](https://img.shields.io/badge/AI-Powered-00D4AA)](https://github.com/codezz/brainrepo)
+[![AI Ready](https://img.shields.io/badge/AI-Powered-00D4AA)](https://github.com/codezz/supabrain)
 
 BrainRepo is a Claude Code plugin that automatically builds and evolves your Second Brain as you work:
 
@@ -46,7 +46,7 @@ BrainRepo is a Claude Code plugin that automatically builds and evolves your Sec
 
 **Clone to Claude plugins directory:**
 ```bash
-git clone https://github.com/codezz/brainrepo.git ~/.claude/plugins/brainrepo
+git clone https://github.com/codezz/supabrain.git ~/.claude/plugins/supabrain
 ```
 
 ### 2. Initialize
@@ -57,7 +57,7 @@ Open Claude Code, run:
 ```
 
 You'll be asked:
-1. **Where to create your brain?** (default: `~/brainrepo` or custom path)
+1. **Where to create your brain?** (default: `~/supabrain` or custom path)
 2. **Your name** (for identity)
 3. **Technical level** (technical / semi-technical / non-technical / chaotic)
 4. **Preferred language** (Romanian / English / Both)
@@ -96,7 +96,7 @@ Creates skills, agents, or knowledge notes.
 After installation and `/brain:init`:
 
 ```
-~/brainrepo/                          # (or your custom path)
+~/supabrain/                          # (or your custom path)
 ├── content/                          # 🌟 Your Second Brain
 │   ├── Inbox/                        # Quick captures
 │   ├── Projects/                     # Auto-created projects
@@ -183,7 +183,7 @@ Synthesizes 5+ instincts into:
 
 Path is set during `/brain:init`, but you can change it later.
 
-Edit `~/.claude/plugins/brainrepo/config.json`:
+Edit `~/.claude/plugins/supabrain/config.json`:
 
 ```json
 {
@@ -331,7 +331,7 @@ Imported patterns:
 
 Check installation:
 ```bash
-ls -la ~/.claude/plugins/brainrepo/
+ls -la ~/.claude/plugins/supabrain/
 ```
 
 Verify `plugin.json` exists.
@@ -378,7 +378,7 @@ Ensure path is absolute or uses `~`:
 
 ### Plugin (Code)
 ```
-~/.claude/plugins/brainrepo/
+~/.claude/plugins/supabrain/
 ├── config.json
 ├── hooks/
 ├── scripts/
@@ -389,7 +389,7 @@ Ensure path is absolute or uses `~`:
 
 ### Data (Content)
 ```
-~/brainrepo/           # (or your custom path)
+~/supabrain/           # (or your custom path)
 ├── content/
 └── learning/
 ```
@@ -445,8 +445,8 @@ See [LICENSE](LICENSE) for details.
 
 ## 🌟 Support
 
-- **Issues:** [GitHub Issues](https://github.com/codezz/brainrepo/issues)
-- **Discussions:** [GitHub Discussions](https://github.com/codezz/brainrepo/discussions)
+- **Issues:** [GitHub Issues](https://github.com/codezz/supabrain/issues)
+- **Discussions:** [GitHub Discussions](https://github.com/codezz/supabrain/discussions)
 - **Star ⭐** if this helps you think better!
 
 ---

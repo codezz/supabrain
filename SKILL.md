@@ -1,5 +1,5 @@
 ---
-name: brainrepo
+name: supabrain
 description: >
   Your personal knowledge repository — capture, organize, and retrieve everything using PARA + Zettelkasten.
   Triggers on: "save this", "remember", "note", "capture", "brain dump", daily/weekly
@@ -13,23 +13,23 @@ Your personal knowledge repository. Capture fast, organize automatically, retrie
 
 ## Brain Location
 
-**Fixed path:** `~/Documents/brainrepo/`
+**Fixed path:** `~/Documents/supabrain/`
 
 This is not configurable. All brain data lives here.
 
 ## First Run Check
 
-**Before any action**, check if brainrepo is initialized:
+**Before any action**, check if supabrain is initialized:
 
-1. Check if `~/Documents/brainrepo/` exists with expected structure (Inbox/, Projects/, Areas/)
+1. Check if `~/Documents/supabrain/` exists with expected structure (Inbox/, Projects/, Areas/)
 2. If NOT found → **Run onboarding automatically**
 3. If found → Proceed with user request
 
 ## Onboarding
 
-Triggers automatically on first interaction, or when user says "set up brainrepo":
+Triggers automatically on first interaction, or when user says "set up supabrain":
 
-1. Create brain at `~/Documents/brainrepo/`
+1. Create brain at `~/Documents/supabrain/`
 2. Create the folder structure:
 
 ```bash
@@ -43,7 +43,7 @@ mkdir -p <path>/{Inbox,Projects,Areas/personal-growth,Areas/family,Notes,Resourc
 
 4. Initialize git (optional):
 ```bash
-cd <path> && git init && git add -A && git commit -m "init: brainrepo"
+cd <path> && git init && git add -A && git commit -m "init: supabrain"
 ```
 
 5. Confirm setup and show quick start commands
@@ -59,7 +59,7 @@ cd <path> && git init && git add -A && git commit -m "init: brainrepo"
 ## Repository Structure
 
 ```
-brainrepo/
+supabrain/
 ├── Inbox/          # Quick capture (clear daily)
 ├── Projects/       # Active work with deadlines
 ├── Areas/          # Ongoing responsibilities (no deadline)
@@ -137,7 +137,7 @@ See [references/workflows.md](references/workflows.md) for detailed workflows.
 
 | User says | Action |
 |-----------|--------|
-| "Set up brainrepo" | Run onboarding, create structure |
+| "Set up supabrain" | Run onboarding, create structure |
 | "Save this: [text]" | Capture to Inbox/ |
 | "New project: [name]" | Create Projects/name/ with template |
 | "Add person: [name]" | Create People/name.md with template |

@@ -17,7 +17,7 @@ Displays learning statistics, recent activity, and clustering status.
 
 ### 1. Identity Summary
 
-Read `~/brainrepo/learning/meta/identity.json`:
+Read `~/supabrain/learning/meta/identity.json`:
 
 ```
 🧠 BrainRepo Status
@@ -56,7 +56,7 @@ Tasks: 15 open, 8 completed
 
 ### 3. Learning Statistics
 
-Read `~/brainrepo/learning/meta/stats.json`:
+Read `~/supabrain/learning/meta/stats.json`:
 
 ```
 🧠 Meta-Learning
@@ -73,7 +73,7 @@ Evolved: 2 skills, 0 agents, 0 commands
 
 ### 4. Clustering Status
 
-Read `~/brainrepo/learning/meta/clustering-flags.json`:
+Read `~/supabrain/learning/meta/clustering-flags.json`:
 
 ```
 🌱 Ready to Evolve
@@ -110,7 +110,7 @@ Patterns detected:
 
 ```javascript
 async function brainStatus() {
-  const brainRepo = '~/brainrepo';
+  const brainRepo = '~/supabrain';
   
   // 1. Identity
   const identity = await readJSON(`${brainRepo}/learning/meta/identity.json`);

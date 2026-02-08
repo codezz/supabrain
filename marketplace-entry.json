@@ -1,13 +1,13 @@
 {
-  "name": "brainrepo",
+  "name": "supabrain",
   "display_name": "BrainRepo - Auto-Learning Second Brain",
   "type": "plugin",
   "description": "Auto-populates your Second Brain and learns patterns from your Claude Code sessions. Zero manual work.",
   "version": "1.0.0",
   "author": "codezz",
   "license": "MIT",
-  "homepage": "https://github.com/codezz/brainrepo",
-  "repository": "https://github.com/codezz/brainrepo",
+  "homepage": "https://github.com/codezz/supabrain",
+  "repository": "https://github.com/codezz/supabrain",
   "tags": [
     "knowledge-management",
     "second-brain",
@@ -45,8 +45,8 @@
   },
   "install": {
     "type": "git",
-    "url": "https://github.com/codezz/brainrepo.git",
-    "path": "~/.claude/plugins/brainrepo"
+    "url": "https://github.com/codezz/supabrain.git",
+    "path": "~/.claude/plugins/supabrain"
   },
   "setup": {
     "post_install": [

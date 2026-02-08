@@ -5,7 +5,7 @@ Detailed breakdown of every folder and when to use it.
 ## Directory Tree
 
 ```
-brainrepo/
+supabrain/
 │
 ├── Inbox/                          # Temporary capture zone
 │   └── *.md                        # Unprocessed notes (clear daily)

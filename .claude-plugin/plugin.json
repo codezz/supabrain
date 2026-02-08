@@ -1,9 +1,9 @@
 {
-  "name": "brainrepo",
+  "name": "supabrain",
   "version": "1.0.0",
   "description": "Extended Second Brain that learns as you work in Claude Code",
   "author": "Gabi",
-  "homepage": "https://github.com/gabifratica/brainrepo",
+  "homepage": "https://github.com/codezz/supabrain",
   "license": "MIT",
   "claude_code_version": ">=1.0.0"
 }

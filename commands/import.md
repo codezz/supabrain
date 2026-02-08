@@ -23,7 +23,7 @@ Check manifest.json:
 const manifest = await readManifestFromArchive(archivePath);
 
 // Validate
-if (!manifest.brainrepo_version) {
+if (!manifest.supabrain_version) {
   throw new Error('Invalid BrainRepo export');
 }
 
@@ -64,7 +64,7 @@ Domains to import:
 Total: 18 instincts
 
 These will be imported to:
-~/brainrepo/learning/instincts/inherited/
+~/supabrain/learning/instincts/inherited/
 
 Proceed? (y/n)
 ```
@@ -74,7 +74,7 @@ Proceed? (y/n)
 If user confirms:
 
 ```bash
-cd ~/brainrepo/learning/instincts/inherited/
+cd ~/supabrain/learning/instincts/inherited/
 tar -xzf /path/to/instincts.tar.gz
 
 # Structure:
@@ -109,7 +109,7 @@ inherited: true
 
 ### 5. Track in Stats
 
-Update `~/brainrepo/learning/meta/stats.json`:
+Update `~/supabrain/learning/meta/stats.json`:
 
 ```json
 {
@@ -131,7 +131,7 @@ Update `~/brainrepo/learning/meta/stats.json`:
 ✅ Import Complete
 
 Imported 18 instincts from Gabi to:
-~/brainrepo/learning/instincts/inherited/gabi-20260208/
+~/supabrain/learning/instincts/inherited/gabi-20260208/
 
 These instincts are kept SEPARATE from your personal learning.
 
@@ -143,7 +143,7 @@ Next steps:
 3. Strong matches may evolve into personal instincts
 
 View imported:
-ls ~/brainrepo/learning/instincts/inherited/gabi-20260208/
+ls ~/supabrain/learning/instincts/inherited/gabi-20260208/
 ```
 
 ## How Inherited Instincts Work

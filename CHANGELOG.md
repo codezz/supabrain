@@ -100,8 +100,8 @@ If you used previous version as OpenClaw skill:
 ### Technical Details
 
 **Architecture:**
-- Plugin code: `~/.claude/plugins/brainrepo/`
-- User data: `~/brainrepo/` (configurable)
+- Plugin code: `~/.claude/plugins/supabrain/`
+- User data: `~/supabrain/` (configurable)
 - Clean separation: code ≠ data
 
 **Hooks:**
@@ -164,4 +164,4 @@ Legacy versions as OpenClaw skill. See git history for details.
 
 ---
 
-[1.0.0]: https://github.com/codezz/brainrepo/releases/tag/v1.0.0
+[1.0.0]: https://github.com/codezz/supabrain/releases/tag/v1.0.0

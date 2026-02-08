@@ -23,13 +23,13 @@ Creates the BrainRepo directory structure and sets up your Second Brain.
 
 Where should I create your Second Brain?
 
-Default: ~/brainrepo
+Default: ~/supabrain
 Custom: Enter full path (e.g., ~/Documents/my-brain)
 
 Path: ___
 ```
 
-If user presses Enter → use default `~/brainrepo`  
+If user presses Enter → use default `~/supabrain`  
 If user enters path → validate and use custom path
 
 **Validate path:**
@@ -39,7 +39,7 @@ If user enters path → validate and use custom path
 
 ### 1b. Update Config
 
-Write chosen path to `~/.claude/plugins/brainrepo/config.json`:
+Write chosen path to `~/.claude/plugins/supabrain/config.json`:
 
 ```json
 {
@@ -54,7 +54,7 @@ This ensures all future commands use the same path.
 ### 2. Create Directory Structure
 
 ```bash
-mkdir -p ~/brainrepo/
+mkdir -p ~/supabrain/
 ├── content/
 │   ├── Inbox/
 │   ├── Projects/
@@ -213,7 +213,7 @@ Ask: "Initialize git repository?"
 
 If yes:
 ```bash
-cd ~/brainrepo
+cd ~/supabrain
 git init
 git add .
 git commit -m "feat: initialize BrainRepo"
@@ -266,14 +266,14 @@ Check `content/Journal/` daily to see what was captured.
 ---
 
 Created: {{date}}
-Plugin: brainrepo v1.0.0
+Plugin: supabrain v1.0.0
 ```
 
 ### 7. Confirm Success
 
 Return message:
 ```
-✅ BrainRepo initialized at ~/brainrepo/
+✅ BrainRepo initialized at ~/supabrain/
 
 Structure created:
 - content/ (Second Brain)
@@ -291,7 +291,7 @@ Commands:
 
 ## Error Handling
 
-- If `~/brainrepo/` already exists: ask to confirm overwrite or skip
+- If `~/supabrain/` already exists: ask to confirm overwrite or skip
 - If custom path not writable: suggest alternative
 - If templates fail: create minimal versions
 
