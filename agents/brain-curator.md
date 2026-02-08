@@ -52,11 +52,17 @@ When a person is mentioned in conversation:
 #### Journal/
 At session end or every hour:
 - Update `~/supabrain/content/Journal/YYYY-MM-DD.md`
-- Append session summary:
-  - Projects worked on (wikilinks)
-  - People interacted with (wikilinks)
-  - Decisions made
-  - Files created/updated
+- Group activities by project (not chronological)
+- Format:
+```markdown
+## {Project Name}
+- Activity 1 (time if known)
+- Activity 2
+- Decision made
+- People interacted: [[People/name]]
+```
+- If multiple projects in same session, create sections for each
+- If no clear project, use "## General" section
 
 #### Notes/
 When a pattern is observed 3+ times:
