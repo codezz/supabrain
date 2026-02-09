@@ -1,6 +1,6 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
-  "name": "remember-md",
+  "name": "remember-md-remember",
   "description": "Remember - Extended Second Brain for Claude Code",
   "owner": {
     "name": "remember-md",
