@@ -1,6 +1,6 @@
 ---
 name: brain-session
-description: BrainRepo session context loader - loads Second Brain context and spawns curator agent
+description: Remember session context loader - loads Second Brain context and spawns curator agent
 version: 1.0.0
 ---
 
@@ -16,7 +16,7 @@ Activates at session start to load Second Brain context and spawn the curator ag
 
 ### 1. Load Identity
 
-Read `~/supabrain/learning/meta/identity.json` to know:
+Read `~/remember/learning/meta/identity.json` to know:
 - Who you are (name, technical level)
 - Session count
 - Last active date
@@ -27,18 +27,18 @@ Read recent Second Brain content:
 
 **Today's Journal:**
 ```bash
-cat ~/supabrain/content/Journal/$(date +%Y-%m-%d).md
+cat ~/remember/content/Journal/$(date +%Y-%m-%d).md
 ```
 
 **Yesterday's Journal (if exists):**
 ```bash
-cat ~/supabrain/content/Journal/$(date -d yesterday +%Y-%m-%d).md
+cat ~/remember/content/Journal/$(date -d yesterday +%Y-%m-%d).md
 ```
 
 **Active Projects:**
 List projects with recent activity (last 7 days):
 ```bash
-find ~/supabrain/content/Projects/ -name "*.md" -mtime -7
+find ~/remember/content/Projects/ -name "*.md" -mtime -7
 ```
 
 ### 3. Load Relevant Instincts
@@ -81,7 +81,7 @@ Brain curator running in background.
 
 ```javascript
 async function brainSessionStart() {
-  const brainRepo = '~/supabrain';
+  const brainRepo = '~/remember';
   
   // 1. Load identity
   const identity = await readJSON(`${brainRepo}/learning/meta/identity.json`);
@@ -112,14 +112,14 @@ async function brainSessionStart() {
 
 ## Configuration
 
-Uses settings from `~/.claude/plugins/supabrain/config.json`:
+Uses settings from `~/.claude/plugins/remember/config.json`:
 - `curator.enabled` - whether to spawn curator
 - `curator.interval_minutes` - how often curator runs
 - `curator.auto_populate` - what to auto-populate
 
 ## Error Handling
 
-If `~/supabrain/` doesn't exist:
+If `~/remember/` doesn't exist:
 - Suggest running `/brain:init` to set up
 - Don't spawn curator
 - Minimal greeting

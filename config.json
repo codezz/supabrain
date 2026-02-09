@@ -2,7 +2,7 @@
   "version": "1.0.0",
   
   "paths": {
-    "data_root": "~/supabrain",
+    "data_root": "~/remember",
     "content": "${data_root}/content",
     "learning": "${data_root}/learning",
     "observations": "${data_root}/learning/observations",

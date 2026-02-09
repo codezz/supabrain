@@ -1,11 +1,11 @@
 ---
 name: brain:init
-description: Initialize BrainRepo structure and configuration
+description: Initialize Remember structure and configuration
 ---
 
-# /brain:init - Initialize BrainRepo
+# /brain:init - Initialize Remember
 
-Creates the BrainRepo directory structure and sets up your Second Brain.
+Creates the Remember directory structure and sets up your Second Brain.
 
 ## Usage
 
@@ -19,17 +19,17 @@ Creates the BrainRepo directory structure and sets up your Second Brain.
 
 **Prompt user:**
 ```
-🧠 BrainRepo Initialization
+🧠 Remember Initialization
 
 Where should I create your Second Brain?
 
-Default: ~/supabrain
+Default: ~/remember
 Custom: Enter full path (e.g., ~/Documents/my-brain)
 
 Path: ___
 ```
 
-If user presses Enter → use default `~/supabrain`  
+If user presses Enter → use default `~/remember`  
 If user enters path → validate and use custom path
 
 **Validate path:**
@@ -39,7 +39,7 @@ If user enters path → validate and use custom path
 
 ### 1b. Update Config
 
-Write chosen path to `~/.claude/plugins/supabrain/config.json`:
+Write chosen path to `~/.claude/plugins/remember/config.json`:
 
 ```json
 {
@@ -54,7 +54,7 @@ This ensures all future commands use the same path.
 ### 2. Create Directory Structure
 
 ```bash
-mkdir -p ~/supabrain/
+mkdir -p ~/remember/
 ├── content/
 │   ├── Inbox/
 │   ├── Projects/
@@ -213,10 +213,10 @@ Ask: "Initialize git repository?"
 
 If yes:
 ```bash
-cd ~/supabrain
+cd ~/remember
 git init
 git add .
-git commit -m "feat: initialize BrainRepo"
+git commit -m "feat: initialize Remember"
 ```
 
 Create `.gitignore`:
@@ -230,7 +230,7 @@ learning/observations/archive/
 
 **`README.md`:**
 ```markdown
-# 🧠 BrainRepo
+# 🧠 Remember
 
 Your extended Second Brain that learns as you work in Claude Code.
 
@@ -245,7 +245,7 @@ A hybrid PARA + Zettelkasten system with automatic population and pattern learni
 
 ## Usage
 
-Work normally in Claude Code. BrainRepo:
+Work normally in Claude Code. Remember:
 - Auto-populates Projects/, People/, Journal/
 - Learns your workflow patterns
 - Evolves into optimized skills
@@ -266,14 +266,14 @@ Check `content/Journal/` daily to see what was captured.
 ---
 
 Created: {{date}}
-Plugin: supabrain v1.0.0
+Plugin: remember v1.0.0
 ```
 
 ### 7. Confirm Success
 
 Return message:
 ```
-✅ BrainRepo initialized at ~/supabrain/
+✅ Remember initialized at ~/remember/
 
 Structure created:
 - content/ (Second Brain)
@@ -291,7 +291,7 @@ Commands:
 
 ## Error Handling
 
-- If `~/supabrain/` already exists: ask to confirm overwrite or skip
+- If `~/remember/` already exists: ask to confirm overwrite or skip
 - If custom path not writable: suggest alternative
 - If templates fail: create minimal versions
 

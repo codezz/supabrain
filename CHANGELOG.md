@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to BrainRepo will be documented in this file.
+All notable changes to Remember will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
@@ -34,7 +34,7 @@ Complete redesign from OpenClaw skill to Claude Code plugin with auto-learning c
   - Provides context-aware greeting
 
 #### Commands
-- `/brain:init` - Initialize BrainRepo structure
+- `/brain:init` - Initialize Remember structure
 - `/brain:status` - Show learning stats & clustering
 - `/brain:evolve` - Evolve clustered instincts into skills/agents
 - `/brain:export` - Export instincts (privacy-safe sharing)
@@ -100,8 +100,8 @@ If you used previous version as OpenClaw skill:
 ### Technical Details
 
 **Architecture:**
-- Plugin code: `~/.claude/plugins/supabrain/`
-- User data: `~/supabrain/` (configurable)
+- Plugin code: `~/.claude/plugins/remember/`
+- User data: `~/remember/` (configurable)
 - Clean separation: code ≠ data
 
 **Hooks:**
@@ -164,4 +164,4 @@ Legacy versions as OpenClaw skill. See git history for details.
 
 ---
 
-[1.0.0]: https://github.com/codezz/supabrain/releases/tag/v1.0.0
+[1.0.0]: https://github.com/codezz/remember/releases/tag/v1.0.0

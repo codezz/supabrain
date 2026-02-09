@@ -24,7 +24,7 @@ Or specific domain:
 
 If no domain specified, export ALL:
 ```bash
-~/supabrain/learning/instincts/personal/
+~/remember/learning/instincts/personal/
 ├── code-style/
 ├── workflow/
 ├── communication/
@@ -38,7 +38,7 @@ If domain specified, export only that domain.
 Create tarball with timestamp:
 
 ```bash
-cd ~/supabrain
+cd ~/remember
 mkdir -p exports
 tar -czf exports/instincts-$(date +%Y%m%d-%H%M%S).tar.gz \
   learning/instincts/personal/
@@ -88,7 +88,7 @@ Include `manifest.json` in archive:
 ```json
 {
   "export_date": "2026-02-08T15:00:00Z",
-  "supabrain_version": "1.0.0",
+  "remember_version": "1.0.0",
   "author": "User",
   "domains": {
     "code-style": {
@@ -117,7 +117,7 @@ Include `manifest.json` in archive:
 ✅ Instincts Exported
 
 Archive created:
-~/supabrain/exports/instincts-20260208-150000.tar.gz
+~/remember/exports/instincts-20260208-150000.tar.gz
 
 Contents:
 - code-style: 7 instincts
@@ -130,7 +130,7 @@ Total: 18 instincts (privacy-safe)
 Share this file with others to help them learn from your patterns!
 
 Import on another machine:
-/brain:import ~/supabrain/exports/instincts-20260208-150000.tar.gz
+/brain:import ~/remember/exports/instincts-20260208-150000.tar.gz
 ```
 
 ## Export Options

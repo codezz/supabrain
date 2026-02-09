@@ -1,5 +1,5 @@
 #!/bin/bash
-# BrainRepo - Session Stop Hook
+# Remember - Session Stop Hook
 # Triggered at session end
 
 set -e

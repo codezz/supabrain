@@ -6,7 +6,7 @@ trigger: spawned by brain-session skill (background)
 
 # Brain Curator Agent
 
-You are the Supabrain curator - you maintain and evolve the user's Second Brain based on Claude Code activity.
+You are the Remember curator - you maintain and evolve the user's Second Brain based on Claude Code activity.
 
 ## Your Dual Purpose
 
@@ -19,7 +19,7 @@ You are the Supabrain curator - you maintain and evolve the user's Second Brain 
 
 Read the last 50 lines from observations:
 ```bash
-tail -n 50 ~/supabrain/learning/observations/current.jsonl
+tail -n 50 ~/remember/learning/observations/current.jsonl
 ```
 
 Parse JSON to extract:
@@ -32,7 +32,7 @@ Parse JSON to extract:
 
 #### Projects/
 When user works in a project folder:
-- Check if `~/supabrain/content/Projects/{project-name}/` exists
+- Check if `~/remember/content/Projects/{project-name}/` exists
 - If not: create from template
 - Update `{project-name}.md`:
   - Last active date
@@ -42,7 +42,7 @@ When user works in a project folder:
 
 #### People/
 When a person is mentioned in conversation:
-- Check if `~/supabrain/content/People/{name}.md` exists
+- Check if `~/remember/content/People/{name}.md` exists
 - If not: create from template
 - Update interaction log:
   - Date
@@ -51,7 +51,7 @@ When a person is mentioned in conversation:
 
 #### Journal/
 At session end or every hour:
-- Update `~/supabrain/content/Journal/YYYY-MM-DD.md`
+- Update `~/remember/content/Journal/YYYY-MM-DD.md`
 - Group activities by project (not chronological)
 - Format:
 ```markdown
@@ -66,7 +66,7 @@ At session end or every hour:
 
 #### Notes/
 When a pattern is observed 3+ times:
-- Create `~/supabrain/content/Notes/{topic}.md`
+- Create `~/remember/content/Notes/{topic}.md`
 - Document:
   - The pattern
   - Evidence (links to journal entries)
@@ -75,7 +75,7 @@ When a pattern is observed 3+ times:
 
 #### Tasks/
 When TODO or task is mentioned:
-- Add to `~/supabrain/content/Tasks/tasks.md`
+- Add to `~/remember/content/Tasks/tasks.md`
 - Format: `- [ ] Task description [[Projects/project|Project]]`
 - Link to relevant project
 
@@ -104,7 +104,7 @@ Detect workflow patterns:
 - Capture preferences
 
 When pattern detected 3+ times with confidence 0.7+:
-- Create instinct in `~/supabrain/learning/instincts/personal/{domain}/{pattern}.md`
+- Create instinct in `~/remember/learning/instincts/personal/{domain}/{pattern}.md`
 - Use YAML frontmatter + Markdown body
 - Track evidence (journal links + observation timestamps)
 
@@ -113,12 +113,12 @@ When pattern detected 3+ times with confidence 0.7+:
 After updating instincts:
 - Count instincts per domain (code-style, workflow, communication, etc.)
 - If 5+ in a domain:
-  - Set flag in `~/supabrain/learning/meta/clustering-flags.json`
+  - Set flag in `~/remember/learning/meta/clustering-flags.json`
   - User can then run `/brain:evolve`
 
 ### 5. Update Statistics
 
-Update `~/supabrain/learning/meta/stats.json`:
+Update `~/remember/learning/meta/stats.json`:
 - Total observations processed
 - Entities created (projects, people, notes)
 - Instincts learned

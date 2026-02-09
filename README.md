@@ -1,23 +1,23 @@
-# 🧠 Supabrain - AI-Powered Second Brain That Builds Itself
+# 🧠 Remember - AI-Powered Second Brain That Builds Itself
 
 **Your personal AI brain that learns, organizes, and evolves as you work**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Claude Code](https://img.shields.io/badge/Claude-Code-7C3AED)](https://claude.ai/code)
-[![AI Powered](https://img.shields.io/badge/AI-Powered-00D4AA)](https://github.com/codezz/supabrain)
-[![Second Brain](https://img.shields.io/badge/Second-Brain-FF6B6B)](https://github.com/codezz/supabrain)
+[![AI Powered](https://img.shields.io/badge/AI-Powered-00D4AA)](https://github.com/remember-md/remember)
+[![Second Brain](https://img.shields.io/badge/Second-Brain-FF6B6B)](https://github.com/remember-md/remember)
 
 > **Stop maintaining notes manually. Start building a brain that maintains itself.**
 
-Supabrain is an **AI-powered Second Brain plugin** for Claude Code that automatically captures your work, learns from your patterns, and evolves into a personalized knowledge management system—zero manual work required.
+Remember is an **AI-powered Second Brain plugin** for Claude Code that automatically captures your work, learns from your patterns, and evolves into a personalized knowledge management system—zero manual work required.
 
 Perfect for knowledge workers, developers, creators, and anyone building a digital brain.
 
 ---
 
-## 🎯 What is Supabrain?
+## 🎯 What is Remember?
 
-**Supabrain** transforms Claude Code into your **automatic Second Brain**:
+**Remember** transforms Claude Code into your **automatic Second Brain**:
 
 - 🧠 **Second Brain Automation** - Auto-captures projects, people, notes, and tasks as you work
 - 🤖 **AI Brain Dump** - Instant brain dumps via Claude—no manual note-taking
@@ -28,7 +28,7 @@ Perfect for knowledge workers, developers, creators, and anyone building a digit
 - 💯 **100% Capture Rate** - Deterministic hooks, not probabilistic prompts
 - 🔒 **Privacy-First** - Local storage, Git-friendly, your data stays yours
 
-**Supabrain = Obsidian + Notion + AI Personal Assistant + Automatic Note-Taking**
+**Remember = Obsidian + Notion + AI Personal Assistant + Automatic Note-Taking**
 
 ---
 
@@ -64,7 +64,7 @@ Your **AI brain** that learns YOU:
 
 **Instant brain dump** via Claude Code:
 
-- Talk to Claude → Supabrain captures everything
+- Talk to Claude → Remember captures everything
 - No need to manually file notes
 - Auto-categorizes and links knowledge
 - Daily journal summaries generated automatically
@@ -102,7 +102,7 @@ Best of both worlds:
 **Clone to your Claude Code plugins directory:**
 
 ```bash
-git clone https://github.com/codezz/supabrain.git ~/.claude/plugins/supabrain
+git clone https://github.com/remember-md/remember.git ~/.claude/plugins/remember
 ```
 
 ### 2. Initialize Your Second Brain
@@ -114,19 +114,19 @@ Open **Claude Code** and run:
 ```
 
 **Setup prompts (30 seconds):**
-1. **Brain location?** (default: `~/supabrain` or custom path)
+1. **Brain location?** (default: `~/remember` or custom path)
 2. **Your name?** (for identity)
 3. **Technical level?** (technical / semi-technical / non-technical / chaotic)
 4. **Language?** (English / Romanian / Both)
 
-**Done!** Supabrain creates your PARA structure and starts learning.
+**Done!** Remember creates your PARA structure and starts learning.
 
 ### 3. Work Normally in Claude Code
 
 Just use Claude Code like you always do:
 
 - Code, ask questions, brainstorm, plan
-- Supabrain captures **everything** (100% deterministic)
+- Remember captures **everything** (100% deterministic)
 - Background AI agent processes every 5 minutes
 - Your Second Brain auto-populates
 - Patterns learned automatically
@@ -158,10 +158,10 @@ AI synthesizes patterns into:
 
 ## 📂 Your Second Brain Structure
 
-After `/brain:init`, Supabrain creates:
+After `/brain:init`, Remember creates:
 
 ```
-~/supabrain/                          # Your personal AI brain
+~/remember/                          # Your personal AI brain
 ├── content/                          # 🧠 Your Second Brain (PARA)
 │   ├── Inbox/                        # Brain dumps & quick captures
 │   ├── Projects/                     # Active projects (auto-created)
@@ -332,7 +332,7 @@ content/
 ├── Projects/         (5 projects auto-created)
 │   ├── my-app/
 │   ├── staxwp/
-│   ├── supabrain/
+│   ├── remember/
 │   ├── minecraft-dash/
 │   └── 99-marketing/
 ├── People/           (8 people auto-captured)
@@ -372,9 +372,9 @@ content/
 
 ---
 
-## 🆚 Comparison: Supabrain vs. Alternatives
+## 🆚 Comparison: Remember vs. Alternatives
 
-| Feature | Supabrain | Obsidian | Notion | Mem.ai | Reflect |
+| Feature | Remember | Obsidian | Notion | Mem.ai | Reflect |
 |---------|-----------|----------|--------|--------|---------|
 | **Auto-capture** | ✅ 100% | ❌ Manual | ❌ Manual | ⚠️ Partial | ⚠️ Partial |
 | **AI Learning** | ✅ Yes | ❌ No | ⚠️ Limited | ✅ Yes | ✅ Yes |
@@ -386,7 +386,7 @@ content/
 | **PARA Structure** | ✅ Yes | ⚠️ Manual | ⚠️ Manual | ❌ No | ❌ No |
 | **Zettelkasten** | ✅ Yes | ✅ Yes | ⚠️ Limited | ❌ No | ❌ No |
 
-**Supabrain = Obsidian's power + Notion's ease + AI automation**
+**Remember = Obsidian's power + Notion's ease + AI automation**
 
 ---
 
@@ -394,7 +394,7 @@ content/
 
 ### Change Brain Location
 
-Edit `~/.claude/plugins/supabrain/config.json`:
+Edit `~/.claude/plugins/remember/config.json`:
 
 ```json
 {
@@ -529,7 +529,7 @@ Learn from others' exported patterns:
 
 ## 🎓 Methodology & Philosophy
 
-Supabrain combines proven knowledge management methodologies:
+Remember combines proven knowledge management methodologies:
 
 ### 📚 Building a Second Brain (Tiago Forte)
 
@@ -575,7 +575,7 @@ Supabrain combines proven knowledge management methodologies:
 
 **Plugin (Portable):**
 ```
-~/.claude/plugins/supabrain/
+~/.claude/plugins/remember/
 ├── config.json              # Configuration
 ├── hooks/                   # Capture hooks
 ├── scripts/                 # Processing scripts
@@ -586,7 +586,7 @@ Supabrain combines proven knowledge management methodologies:
 
 **Data (Personal):**
 ```
-~/supabrain/                 # (or your custom path)
+~/remember/                 # (or your custom path)
 ├── content/                 # Your Second Brain
 └── learning/                # AI learning system
 ```
@@ -631,8 +631,8 @@ Built on the shoulders of giants:
 **Contributions welcome!**
 
 Ways to contribute:
-1. 🐛 Report bugs via [GitHub Issues](https://github.com/codezz/supabrain/issues)
-2. 💡 Suggest features via [GitHub Discussions](https://github.com/codezz/supabrain/discussions)
+1. 🐛 Report bugs via [GitHub Issues](https://github.com/remember-md/remember/issues)
+2. 💡 Suggest features via [GitHub Discussions](https://github.com/remember-md/remember/discussions)
 3. 🔧 Submit Pull Requests
 4. 📖 Improve documentation
 5. 🌟 Share your learned patterns (export → community repo)
@@ -667,10 +667,10 @@ Ways to contribute:
 
 ## 💬 Support & Community
 
-- **Documentation:** [GitHub Wiki](https://github.com/codezz/supabrain/wiki)
-- **Issues:** [GitHub Issues](https://github.com/codezz/supabrain/issues)
-- **Discussions:** [GitHub Discussions](https://github.com/codezz/supabrain/discussions)
-- **Star ⭐ the repo** - helps others discover Supabrain
+- **Documentation:** [GitHub Wiki](https://github.com/remember-md/remember/wiki)
+- **Issues:** [GitHub Issues](https://github.com/remember-md/remember/issues)
+- **Discussions:** [GitHub Discussions](https://github.com/remember-md/remember/discussions)
+- **Star ⭐ the repo** - helps others discover Remember
 - **Share on Twitter/LinkedIn** - spread the word
 
 **Questions? Open an issue. We're here to help.**
@@ -689,7 +689,7 @@ See [LICENSE](LICENSE) for full details.
 
 ## 🌟 Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=codezz/supabrain&type=Date)](https://star-history.com/#codezz/supabrain&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=codezz/remember&type=Date)](https://star-history.com/#codezz/remember&Date)
 
 ---
 
@@ -721,7 +721,7 @@ para method, second brain method, zettelkasten method, linked notes, bi-directio
 
 ```bash
 # 1. Clone the plugin
-git clone https://github.com/codezz/supabrain.git ~/.claude/plugins/supabrain
+git clone https://github.com/remember-md/remember.git ~/.claude/plugins/remember
 
 # 2. Open Claude Code
 
@@ -736,4 +736,4 @@ git clone https://github.com/codezz/supabrain.git ~/.claude/plugins/supabrain
 
 **Made with 🧠 by knowledge workers, for knowledge workers**
 
-*Build a brain worth having. Build Supabrain.*
+*Build a brain worth having. Build Remember.*

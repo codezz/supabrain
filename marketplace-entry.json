@@ -1,13 +1,13 @@
 {
-  "name": "supabrain",
-  "display_name": "BrainRepo - Auto-Learning Second Brain",
+  "name": "remember",
+  "display_name": "Remember - Auto-Learning Second Brain",
   "type": "plugin",
   "description": "Auto-populates your Second Brain and learns patterns from your Claude Code sessions. Zero manual work.",
   "version": "1.0.0",
   "author": "codezz",
   "license": "MIT",
-  "homepage": "https://github.com/codezz/supabrain",
-  "repository": "https://github.com/codezz/supabrain",
+  "homepage": "https://github.com/remember-md/remember",
+  "repository": "https://github.com/remember-md/remember",
   "tags": [
     "knowledge-management",
     "second-brain",
@@ -45,13 +45,13 @@
   },
   "install": {
     "type": "git",
-    "url": "https://github.com/codezz/supabrain.git",
-    "path": "~/.claude/plugins/supabrain"
+    "url": "https://github.com/remember-md/remember.git",
+    "path": "~/.claude/plugins/remember"
   },
   "setup": {
     "post_install": [
       "Edit config.json to set your data_root path",
-      "Run /brain:init in Claude Code to initialize"
+      "Run /remember:init in Claude Code to initialize"
     ]
   }
 }

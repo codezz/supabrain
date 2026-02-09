@@ -1,11 +1,11 @@
-# BrainRepo Structure Guide
+# Remember Structure Guide
 
 Detailed breakdown of every folder and when to use it.
 
 ## Directory Tree
 
 ```
-supabrain/
+remember/
 │
 ├── Inbox/                          # Temporary capture zone
 │   └── *.md                        # Unprocessed notes (clear daily)

@@ -1,6 +1,6 @@
 # Instinct Format Reference
 
-**For Supabrain brain-curator agent**
+**For Remember brain-curator agent**
 
 ## Problem
 
@@ -40,7 +40,7 @@ created: 2026-02-08
 last_observed: 2026-02-08
 observation_count: 10
 related_notes: ["[[content/Notes/task-management-best-practices]]"]
-related_projects: ["[[content/Projects/supabrain/supabrain]]"]
+related_projects: ["[[content/Projects/remember/remember]]"]
 related_people: []
 ---
 ```

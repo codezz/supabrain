@@ -1,9 +1,9 @@
 ---
 name: brain:status
-description: Show BrainRepo learning statistics and status
+description: Show Remember learning statistics and status
 ---
 
-# /brain:status - BrainRepo Status
+# /brain:status - Remember Status
 
 Displays learning statistics, recent activity, and clustering status.
 
@@ -17,10 +17,10 @@ Displays learning statistics, recent activity, and clustering status.
 
 ### 1. Identity Summary
 
-Read `~/supabrain/learning/meta/identity.json`:
+Read `~/remember/learning/meta/identity.json`:
 
 ```
-🧠 BrainRepo Status
+🧠 Remember Status
 
 Name: User
 Technical Level: technical
@@ -56,7 +56,7 @@ Tasks: 15 open, 8 completed
 
 ### 3. Learning Statistics
 
-Read `~/supabrain/learning/meta/stats.json`:
+Read `~/remember/learning/meta/stats.json`:
 
 ```
 🧠 Meta-Learning
@@ -73,7 +73,7 @@ Evolved: 2 skills, 0 agents, 0 commands
 
 ### 4. Clustering Status
 
-Read `~/supabrain/learning/meta/clustering-flags.json`:
+Read `~/remember/learning/meta/clustering-flags.json`:
 
 ```
 🌱 Ready to Evolve
@@ -110,7 +110,7 @@ Patterns detected:
 
 ```javascript
 async function brainStatus() {
-  const brainRepo = '~/supabrain';
+  const brainRepo = '~/remember';
   
   // 1. Identity
   const identity = await readJSON(`${brainRepo}/learning/meta/identity.json`);

@@ -1,5 +1,5 @@
 #!/bin/bash
-# BrainRepo - Observation Capture Script
+# Remember - Observation Capture Script
 # Captures 100% of tool use via hooks
 
 set -e
