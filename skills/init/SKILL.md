@@ -1,6 +1,7 @@
 ---
 name: brain:init
 description: Initialize Remember structure and configuration
+user-invocable: true
 ---
 
 # /brain:init - Initialize Remember
@@ -21,11 +22,11 @@ Creates the Second Brain directory structure, Persona file, and configures permi
 ```
 Where should I create your Second Brain?
 
-Default: ~/second-brain
-Custom: Enter full path (e.g., ~/Documents/my-brain)
+Default: ~/remember
+Custom: Enter a full path (e.g., ~/Documents/my-brain)
 ```
 
-If user presses Enter → use default `~/second-brain`
+If user presses Enter → use default `~/remember`
 If user enters path → validate and use custom path
 
 **Validate path:**
@@ -35,7 +36,7 @@ If user enters path → validate and use custom path
 
 ### 2. Save Config
 
-Write chosen path to `~/.claude/plugins/remember/config.json`:
+Write chosen path to `${CLAUDE_PLUGIN_ROOT}/config.json`:
 
 ```json
 {

@@ -1,9 +1,15 @@
-# BrainRepo Plugin - .gitignore
+# Remember Plugin - .gitignore
+
+# User config (created by /brain:init, not tracked)
+config.json
 
 # User data (not part of plugin)
-# Users will have their own brainrepo data elsewhere
 data/
 *.jsonl
+
+# Python
+__pycache__/
+*.pyc
 
 # OS files
 .DS_Store

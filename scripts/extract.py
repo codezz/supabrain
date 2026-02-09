@@ -13,11 +13,29 @@ Usage:
 import json
 import os
 import sys
-import glob
 from datetime import datetime
 from pathlib import Path
 
-BRAIN_ROOT = Path.home() / "second-brain"
+
+def get_brain_root():
+    """Resolve brain root: config.json (user) → config.defaults.json (shipped) → ~/remember."""
+    plugin_dir = Path(__file__).resolve().parent.parent
+    for name in ("config.json", "config.defaults.json"):
+        config_path = plugin_dir / name
+        if not config_path.exists():
+            continue
+        try:
+            with open(config_path, encoding="utf-8") as f:
+                config = json.load(f)
+            data_root = config.get("paths", {}).get("data_root", "")
+            if data_root:
+                return Path(os.path.expanduser(data_root))
+        except (json.JSONDecodeError, OSError):
+            continue
+    return Path.home() / "remember"
+
+
+BRAIN_ROOT = get_brain_root()
 PROCESSED_FILE = BRAIN_ROOT / ".processed_sessions"
 CLAUDE_PROJECTS_DIR = Path.home() / ".claude" / "projects"
 MAX_ASSISTANT_TEXT_LEN = 500
@@ -27,13 +45,13 @@ def get_processed_sessions():
     """Read set of already-processed session IDs."""
     if not PROCESSED_FILE.exists():
         return set()
-    return set(PROCESSED_FILE.read_text().strip().splitlines())
+    return set(PROCESSED_FILE.read_text(encoding="utf-8").strip().splitlines())
 
 
 def mark_session_processed(session_id):
     """Append session ID to processed file."""
     PROCESSED_FILE.parent.mkdir(parents=True, exist_ok=True)
-    with open(PROCESSED_FILE, "a") as f:
+    with open(PROCESSED_FILE, "a", encoding="utf-8") as f:
         f.write(session_id + "\n")
 
 
@@ -58,17 +76,18 @@ def get_session_id(path):
 def get_project_name(path):
     """Extract human-readable project name from the project directory."""
     parent = Path(path).parent.name
-    # Convert -Users-gabi-projects-foo-bar to foo/bar (last meaningful parts)
     parts = parent.split("-")
     # Find "projects" marker and take everything after
     try:
         idx = parts.index("projects")
         project_parts = [p for p in parts[idx + 1:] if p]
-        return "/".join(project_parts) if project_parts else parent
+        if project_parts:
+            return "/".join(project_parts)
     except ValueError:
-        # No "projects" in path, use last 2 meaningful parts
-        meaningful = [p for p in parts if p]
-        return "/".join(meaningful[-2:]) if len(meaningful) >= 2 else parent
+        pass
+    # No "projects" in path or no parts after it — use last 2 meaningful parts
+    meaningful = [p for p in parts if p]
+    return "/".join(meaningful[-2:]) if len(meaningful) >= 2 else parent
 
 
 def is_noise_content(content):
@@ -168,7 +187,7 @@ def extract_session(path):
     first_ts = None
     last_ts = None
 
-    with open(path) as f:
+    with open(path, encoding="utf-8") as f:
         for line in f:
             try:
                 entry = json.loads(line)

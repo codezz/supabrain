@@ -3,16 +3,16 @@
   "name": "remember-md-remember",
   "description": "Remember - Extended Second Brain for Claude Code",
   "owner": {
-    "name": "remember-md",
+    "name": "Gabi Fratica",
     "email": "gabriel@codez.ro"
   },
   "plugins": [
     {
       "name": "remember",
-      "description": "Extended Second Brain that learns as you work in Claude Code",
-      "version": "1.0.0",
+      "description": "Second Brain plugin for Claude Code — PARA + Zettelkasten in Obsidian-native markdown",
+      "version": "1.1.0",
       "author": {
-        "name": "remember-md"
+        "name": "Gabi Fratica"
       },
       "source": "./",
       "category": "productivity",

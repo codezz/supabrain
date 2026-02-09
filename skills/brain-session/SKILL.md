@@ -18,7 +18,7 @@ Loads Second Brain context at session start.
 
 **You MUST read the config file before doing anything else.** Do NOT assume or hardcode any path.
 
-1. Read file: `~/.claude/plugins/remember/config.json`
+1. Read file: `${CLAUDE_PLUGIN_ROOT}/config.json`
 2. Parse JSON → extract `paths.data_root` value
 3. Expand `~` to the user's home directory
 4. Use this resolved path as `{brain_path}` for ALL subsequent operations
@@ -58,7 +58,7 @@ Process past sessions: /brain:process
 
 ## Configuration
 
-User config: `~/.claude/plugins/remember/config.json`
+User config: `${CLAUDE_PLUGIN_ROOT}/config.json`
 ```json
 {
   "paths": {
@@ -78,5 +78,4 @@ If config file missing or brain path doesn't exist:
 ## Notes
 
 - Runs **once** per session at start
-- No background agents — brain is populated via brain dump or `/brain:process`
-- Stop hook updates session count in identity.json
+- No background agents — brain is populated via brain dump keywords or `/brain:process`

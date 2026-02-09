@@ -1,6 +1,7 @@
 ---
 name: brain:process
 description: Process unprocessed Claude sessions into your Second Brain
+user-invocable: true
 ---
 
 # /brain:process - Process Sessions into Second Brain
@@ -18,8 +19,8 @@ Reads unprocessed Claude Code transcripts and routes valuable content into your 
 
 ### 1. Resolve Brain Path
 
-Read `~/.claude/plugins/remember/config.json` → get `paths.data_root`.
-Use this as `{brain_path}`. If missing → tell user to run `/brain:init`.
+Read `${CLAUDE_PLUGIN_ROOT}/config.json` → get `paths.data_root`.
+Expand `~` to home directory. Use this as `{brain_path}`. If missing → tell user to run `/brain:init`.
 
 ### 2. Find Unprocessed Sessions
 

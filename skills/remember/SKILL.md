@@ -15,8 +15,8 @@ Your personal knowledge repository. Two ways to populate it:
 
 ## Brain Location
 
-Read `~/.claude/plugins/remember/config.json` → `paths.data_root`.
-Default: `~/second-brain/`
+Read `${CLAUDE_PLUGIN_ROOT}/config.json` → `paths.data_root`.
+Default: `~/remember/`
 
 ## First Run Check
 
@@ -30,7 +30,7 @@ Default: `~/second-brain/`
 ## Repository Structure
 
 ```
-second-brain/
+remember/
 ├── Inbox/          # Quick capture (clear daily)
 ├── Projects/       # Active work with deadlines
 ├── Areas/          # Ongoing responsibilities (flat files)
@@ -59,8 +59,6 @@ The hook runs `scripts/user_prompt.sh` which:
 
 `/brain:process` reads unprocessed Claude Code transcripts from `~/.claude/projects/`.
 Uses `scripts/extract.py` to parse JSONL transcripts into clean markdown, then routes content.
-
-See `commands/process.md` for full instructions.
 
 ## Routing Rules
 
