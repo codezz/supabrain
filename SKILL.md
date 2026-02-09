@@ -95,12 +95,20 @@ tags: [tag1, tag2]
 Content here. Link to [[Related Notes]] freely.
 ```
 
+## Persona
+
+`Persona.md` at the brain root contains behavioral patterns and preferences. It's:
+- **Loaded** at every session start (via brain-session)
+- **Updated** during `/brain:process` when new patterns are observed
+
+This is how Claude gets smarter about working with you over time.
+
 ## Commands
 
 | Command | Action |
 |---------|--------|
 | `/brain:init` | Initialize brain structure |
-| `/brain:process` | Process unprocessed Claude sessions |
+| `/brain:process` | Process unprocessed Claude sessions + update Persona |
 | `/brain:status` | Show brain statistics |
 | "remember this: X" | Immediate brain dump |
 | "save this: X" | Immediate brain dump |

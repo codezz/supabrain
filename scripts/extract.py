@@ -138,13 +138,22 @@ def extract_assistant_text(message):
     return combined
 
 
-def format_timestamp(ts_str):
-    """Format ISO timestamp to readable format."""
+def parse_timestamp(ts_str):
+    """Parse ISO timestamp to datetime object."""
     try:
-        dt = datetime.fromisoformat(ts_str.replace("Z", "+00:00"))
-        return dt.strftime("%H:%M")
+        return datetime.fromisoformat(ts_str.replace("Z", "+00:00"))
     except (ValueError, AttributeError):
+        return None
+
+
+def format_timestamp(ts_str, include_date=False):
+    """Format ISO timestamp to readable format."""
+    dt = parse_timestamp(ts_str)
+    if not dt:
         return ""
+    if include_date:
+        return dt.strftime("%Y-%m-%d %H:%M")
+    return dt.strftime("%H:%M")
 
 
 def extract_session(path):
@@ -188,6 +197,7 @@ def extract_session(path):
                         "role": "user",
                         "text": text,
                         "time": format_timestamp(ts),
+                        "timestamp": ts,
                     })
 
             elif entry_type == "assistant":
@@ -198,7 +208,16 @@ def extract_session(path):
                         "role": "assistant",
                         "text": text,
                         "time": format_timestamp(ts),
+                        "timestamp": ts,
                     })
+
+    # Detect if session spans multiple days
+    spans_multiple_days = False
+    if first_ts and last_ts:
+        first_dt = parse_timestamp(first_ts)
+        last_dt = parse_timestamp(last_ts)
+        if first_dt and last_dt and first_dt.date() != last_dt.date():
+            spans_multiple_days = True
 
     return {
         "session_id": session_id,
@@ -206,6 +225,8 @@ def extract_session(path):
         "cwd": session_cwd,
         "first_ts": first_ts,
         "last_ts": last_ts,
+        "spans_multiple_days": spans_multiple_days,
+        "session_date": first_ts,
         "messages": messages,
     }
 
@@ -214,16 +235,25 @@ def format_session_markdown(session):
     """Format extracted session data as clean markdown."""
     lines = []
     date_str = ""
+    end_date_str = ""
     if session["first_ts"]:
-        try:
-            dt = datetime.fromisoformat(session["first_ts"].replace("Z", "+00:00"))
+        dt = parse_timestamp(session["first_ts"])
+        if dt:
             date_str = dt.strftime("%Y-%m-%d")
-        except ValueError:
-            pass
+    if session["last_ts"]:
+        dt = parse_timestamp(session["last_ts"])
+        if dt:
+            end_date_str = dt.strftime("%Y-%m-%d")
+
+    spans = session.get("spans_multiple_days", False)
 
     lines.append(f"# Session: {session['project']}")
     if date_str:
-        lines.append(f"**Date:** {date_str}")
+        if spans and end_date_str and date_str != end_date_str:
+            lines.append(f"**Date:** {date_str} to {end_date_str}")
+        else:
+            lines.append(f"**Date:** {date_str}")
+    lines.append(f"**Session date (use for journal/tasks):** {date_str}")
     if session["cwd"]:
         lines.append(f"**Working dir:** `{session['cwd']}`")
     lines.append(f"**Session ID:** `{session['session_id']}`")
@@ -233,7 +263,18 @@ def format_session_markdown(session):
         lines.append("*(empty session)*")
         return "\n".join(lines)
 
+    current_day = None
     for msg in session["messages"]:
+        # Show date headers when session spans multiple days
+        if spans and msg.get("timestamp"):
+            msg_dt = parse_timestamp(msg["timestamp"])
+            if msg_dt:
+                msg_day = msg_dt.strftime("%Y-%m-%d")
+                if msg_day != current_day:
+                    current_day = msg_day
+                    lines.append(f"### {msg_day}")
+                    lines.append("")
+
         time_prefix = f"[{msg['time']}] " if msg["time"] else ""
         if msg["role"] == "user":
             lines.append(f"**{time_prefix}User:** {msg['text']}")

@@ -25,7 +25,11 @@ Loads Second Brain context at session start.
 
 If config file doesn't exist → tell user to run `/brain:init`.
 
-### 2. Load Recent Context
+### 2. Load Persona
+
+**Read `{brain_path}/Persona.md` FIRST.** This file contains behavioral patterns and preferences. Apply them throughout the entire session.
+
+### 3. Load Recent Context
 
 Read recent Second Brain content:
 
@@ -38,9 +42,9 @@ List projects with recent activity (last 7 days)
 **Recent People:**
 List recently modified files in `{brain_path}/People/`
 
-### 3. Greet with Context
+### 4. Greet with Context
 
-Provide brief context:
+Provide brief context (apply Persona preferences — concise, Romanian if appropriate):
 ```
 Session loaded | Brain: {brain_path}
 
