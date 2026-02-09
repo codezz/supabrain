@@ -6,7 +6,7 @@ Step-by-step guides for common operations.
 
 ### Morning Start (Optional, 2 min)
 
-1. Open `Tasks/index.md`
+1. Open `Tasks/tasks.md`
 2. Review today's priorities
 3. Check yesterday's `Journal/` for context
 
@@ -28,14 +28,14 @@ For each item in Inbox/:
 │
 ├─ Is it actionable?
 │  ├─ YES, for a project → Move to Projects/<project>/
-│  ├─ YES, standalone task → Add to Tasks/index.md
+│  ├─ YES, standalone task → Add to Tasks/tasks.md
 │  └─ NO → Continue below
 │
 ├─ Is it reference material?
 │  ├─ About a person → Move to People/
 │  ├─ External content → Move to Resources/
 │  ├─ Reusable knowledge → Move to Notes/
-│  └─ Area-related → Move to Areas/<area>/
+│  └─ Area-related → Move to Areas/<area>.md
 │
 ├─ Is it worth keeping?
 │  ├─ YES → Move to appropriate location
@@ -57,18 +57,18 @@ After processing:
 ### 1. Get Clear (5 min)
 
 - [ ] Process all remaining Inbox items
-- [ ] Review Tasks/index.md — update statuses
+- [ ] Review Tasks/tasks.md — update statuses
 - [ ] Check calendar for upcoming commitments
 
 ### 2. Get Current (5 min)
 
 **Projects:**
 - [ ] Review each project in Projects/
-- [ ] Update status in each index.md
+- [ ] Update status in each project's main file
 - [ ] Archive completed projects
 
 **Areas:**
-- [ ] Scan Areas/ — anything neglected?
+- [ ] Scan Areas/*.md — anything neglected?
 - [ ] Any area needs more attention this week?
 
 ### 3. Get Creative (5 min)
@@ -105,7 +105,7 @@ git push
 
 - [ ] Set 1-3 focus areas for the month
 - [ ] Create new projects if needed
-- [ ] Update Areas/ goals
+- [ ] Update Areas/*.md goals
 
 ---
 
@@ -122,13 +122,13 @@ AI: Creates Inbox/thought-YYYY-MM-DD-HHMM.md
 
 ```
 You: "New project: [name]"
-AI: 
+AI:
   1. Creates Projects/<name>/
-  2. Creates Projects/<name>/index.md with template
+  2. Creates Projects/<name>/<name>.md with template
   3. Optionally links to People/ and Notes/
 ```
 
-**Project index.md template:**
+**Project template:**
 ```markdown
 ---
 created: YYYY-MM-DD
@@ -267,15 +267,15 @@ Team: [[People/jane-smith]], [[People/bob-wilson]]
 ### To Projects
 
 ```markdown
-Part of [[Projects/website/index|Website Redesign]].
-Backlog for [[Projects/mobile-app/index|Mobile App]].
+Part of [[Projects/website/website|Website Redesign]].
+Backlog for [[Projects/mobile-app/mobile-app|Mobile App]].
 ```
 
 ### In Journal
 
 ```markdown
 ## Today's Progress
-- [[Projects/website/index|Website]]: Finished header
+- [[Projects/website/website|Website]]: Finished header
 - Met with [[People/john-doe]] about launch
 - New insight: [[Notes/user-onboarding]]
 ```

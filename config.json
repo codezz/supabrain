@@ -3,13 +3,13 @@
   
   "paths": {
     "data_root": "~/remember",
-    "content": "${data_root}/content",
-    "learning": "${data_root}/learning",
-    "observations": "${data_root}/learning/observations",
-    "instincts_personal": "${data_root}/learning/instincts/personal",
-    "instincts_inherited": "${data_root}/learning/instincts/inherited",
-    "evolved": "${data_root}/learning/evolved",
-    "meta": "${data_root}/learning/meta"
+    "content": "${data_root}",
+    "learning": "${data_root}/System-learnings",
+    "observations": "${data_root}/System-learnings/observations",
+    "instincts_personal": "${data_root}/System-learnings/instincts/personal",
+    "instincts_inherited": "${data_root}/System-learnings/instincts/inherited",
+    "evolved": "${data_root}/System-learnings/evolved",
+    "meta": "${data_root}/System-learnings/meta"
   },
   
   "curator": {

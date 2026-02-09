@@ -1,12 +1,12 @@
 ---
 name: brain-session
-description: Remember session context loader - loads Second Brain context and spawns curator agent
-version: 1.0.0
+description: Remember session context loader - loads Second Brain context
+version: 1.1.0
 ---
 
 # Brain Session
 
-Activates at session start to load Second Brain context and spawn the curator agent.
+Loads Second Brain context at session start.
 
 ## When to use
 
@@ -14,118 +14,65 @@ Activates at session start to load Second Brain context and spawn the curator ag
 
 ## What it does
 
-### 1. Load Identity
+### 1. Resolve Brain Path (MANDATORY FIRST STEP)
 
-Read `~/remember/learning/meta/identity.json` to know:
-- Who you are (name, technical level)
-- Session count
-- Last active date
+**You MUST read the config file before doing anything else.** Do NOT assume or hardcode any path.
+
+1. Read file: `~/.claude/plugins/remember/config.json`
+2. Parse JSON → extract `paths.data_root` value
+3. Expand `~` to the user's home directory
+4. Use this resolved path as `{brain_path}` for ALL subsequent operations
+
+If config file doesn't exist → tell user to run `/brain:init`.
 
 ### 2. Load Recent Context
 
 Read recent Second Brain content:
 
-**Today's Journal:**
-```bash
-cat ~/remember/content/Journal/$(date +%Y-%m-%d).md
-```
-
-**Yesterday's Journal (if exists):**
-```bash
-cat ~/remember/content/Journal/$(date -d yesterday +%Y-%m-%d).md
-```
+**Today's Journal (if exists):**
+Read `{brain_path}/Journal/YYYY-MM-DD.md` (today's date)
 
 **Active Projects:**
-List projects with recent activity (last 7 days):
-```bash
-find ~/remember/content/Projects/ -name "*.md" -mtime -7
+List projects with recent activity (last 7 days)
+
+**Recent People:**
+List recently modified files in `{brain_path}/People/`
+
+### 3. Greet with Context
+
+Provide brief context:
 ```
+Session loaded | Brain: {brain_path}
 
-### 3. Load Relevant Instincts
+Recent:
+- [[Projects/impact3|Impact3]] - last active today
+- [[People/archie]] - last contact yesterday
 
-Read instincts that might apply to current context:
-- Check current working directory
-- Load project-specific instincts
-- Load general workflow instincts (confidence 0.7+)
-
-### 4. Spawn Curator Agent
-
-**Spawn brain-curator agent in background:**
-```
-spawn agent brain-curator with instructions:
-  - Run every 5 minutes
-  - Process new observations
-  - Auto-populate Second Brain
-  - Learn patterns
-  - Check for clustering
-```
-
-The curator runs silently in background throughout the session.
-
-### 5. Greet with Context
-
-Provide brief context to user:
-```
-Good morning! 🧠
-
-Session #42 | Last: 2026-02-07
-
-Recent activity:
-- [[Projects/my-app|My App]] - worked on dashboard
-- Talked to [[People/alice|Alice]] yesterday
-
-Brain curator running in background.
-```
-
-## Example Implementation
-
-```javascript
-async function brainSessionStart() {
-  const brainRepo = '~/remember';
-  
-  // 1. Load identity
-  const identity = await readJSON(`${brainRepo}/learning/meta/identity.json`);
-  
-  // 2. Load today + yesterday journal
-  const today = await readFile(`${brainRepo}/content/Journal/${getDate()}.md`);
-  const yesterday = await readFile(`${brainRepo}/content/Journal/${getYesterday()}.md`);
-  
-  // 3. Find active projects
-  const activeProjects = await findRecentProjects(brainRepo, 7);
-  
-  // 4. Load relevant instincts
-  const instincts = await loadInstincts(brainRepo, {
-    minConfidence: 0.7,
-    domains: ['workflow', 'code-style']
-  });
-  
-  // 5. Spawn curator
-  await spawnAgent('brain-curator', {
-    interval: 5 * 60 * 1000, // 5 minutes
-    background: true
-  });
-  
-  // 6. Greet
-  return formatGreeting(identity, activeProjects, instincts);
-}
+Capture: say "remember this: ..."
+Process past sessions: /brain:process
 ```
 
 ## Configuration
 
-Uses settings from `~/.claude/plugins/remember/config.json`:
-- `curator.enabled` - whether to spawn curator
-- `curator.interval_minutes` - how often curator runs
-- `curator.auto_populate` - what to auto-populate
+User config: `~/.claude/plugins/remember/config.json`
+```json
+{
+  "paths": {
+    "data_root": "/path/to/brain"
+  }
+}
+```
+
+**IMPORTANT:** Always read this file. Never use hardcoded paths.
 
 ## Error Handling
 
-If `~/remember/` doesn't exist:
-- Suggest running `/brain:init` to set up
-- Don't spawn curator
+If config file missing or brain path doesn't exist:
+- Tell user to run `/brain:init`
 - Minimal greeting
 
 ## Notes
 
 - Runs **once** per session at start
-- Curator continues in background until session ends
+- No background agents — brain is populated via brain dump or `/brain:process`
 - Stop hook updates session count in identity.json

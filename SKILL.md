@@ -2,97 +2,82 @@
 name: remember
 description: >
   Your personal knowledge repository — capture, organize, and retrieve everything using PARA + Zettelkasten.
-  Triggers on: "save this", "remember", "note", "capture", "brain dump", daily/weekly
-  reviews, searching stored knowledge, managing projects/areas/people. Works with any AI agent that reads
-  markdown. Stores everything as .md files in a Git repo for Obsidian, VS Code, or any editor.
+  Triggers on: "save this", "remember", "note", "capture", "brain dump".
+  Process past sessions with /brain:process. Stores everything as .md files in a Git repo for Obsidian.
 ---
 
 # Remember
 
-Your personal knowledge repository. Capture fast, organize automatically, retrieve instantly.
+Your personal knowledge repository. Two ways to populate it:
+
+1. **Brain Dump** (immediate) — Say "remember this: ..." and content routes to the right place
+2. **Process Sessions** (on-demand) — Run `/brain:process` to extract value from past Claude sessions
 
 ## Brain Location
 
-**Fixed path:** `~/Documents/remember/`
-
-This is not configurable. All brain data lives here.
+Read `~/.claude/plugins/remember/config.json` → `paths.data_root`.
+Default: `~/second-brain/`
 
 ## First Run Check
 
-**Before any action**, check if remember is initialized:
+**Before any action**, check if brain is initialized:
 
-1. Check if `~/Documents/remember/` exists with expected structure (Inbox/, Projects/, Areas/)
-2. If NOT found → **Run onboarding automatically**
-3. If found → Proceed with user request
-
-## Onboarding
-
-Triggers automatically on first interaction, or when user says "set up remember":
-
-1. Create brain at `~/Documents/remember/`
-2. Create the folder structure:
-
-```bash
-mkdir -p <path>/{Inbox,Projects,Areas/personal-growth,Areas/family,Notes,Resources,Journal,People,Tasks,Archive}
-```
-
-3. Create initial files from templates in `assets/templates/`:
-   - `Tasks/index.md` — task hub
-   - `Areas/personal-growth/index.md` — personal growth area
-   - `Areas/family/index.md` — family area
-
-4. Initialize git (optional):
-```bash
-cd <path> && git init && git add -A && git commit -m "init: remember"
-```
-
-5. Confirm setup and show quick start commands
-
-## Core Concept
-
-**DUMP → PROCESS → RETRIEVE**
-
-1. **Dump** — Capture everything to Inbox/ (don't organize yet)
-2. **Process** — Evening review: Inbox → permanent home
-3. **Retrieve** — Ask AI to find anything
+1. Read config → get brain path
+2. Check if path exists with expected structure (Inbox/, Projects/, Areas/)
+3. If NOT found → Tell user to run `/brain:init`
+4. If found → Proceed
 
 ## Repository Structure
 
 ```
-remember/
+second-brain/
 ├── Inbox/          # Quick capture (clear daily)
 ├── Projects/       # Active work with deadlines
-├── Areas/          # Ongoing responsibilities (no deadline)
-├── Notes/          # Permanent atomic knowledge
+├── Areas/          # Ongoing responsibilities (flat files)
+├── Notes/          # Permanent knowledge, learnings, decisions
 ├── Resources/      # External links, articles, references
 ├── Journal/        # Daily notes (YYYY-MM-DD.md)
 ├── People/         # One note per person
-├── Tasks/          # Centralized task tracking
+├── Tasks/          # Centralized task tracking (tasks.md)
+├── Templates/      # Note templates
 └── Archive/        # Completed projects
 ```
 
-See [references/structure.md](references/structure.md) for detailed breakdown.
+## How It Works
 
-## Capture Rules
+### Brain Dump (Immediate Capture)
 
-### What to Capture (Immediately)
+When user says "remember this", "save this", "brain dump", etc., the `UserPromptSubmit` hook
+injects routing context. Claude (current session) then writes directly to the correct location.
 
-| Type | Destination | Example |
-|------|-------------|---------|
-| Quick thought | `Inbox/` | "Maybe we should..." |
-| Decision made | `Inbox/` or `Notes/` | "Decided to use Next.js" |
-| Person info | `People/` | New contact or update |
-| Project update | `Projects/<name>/` | Meeting notes, progress |
-| Task/Todo | `Tasks/index.md` | "Need to finish X" |
-| Link/Article | `Resources/` or `Inbox/` | URL with context |
-| Personal growth | `Areas/personal-growth/` | Health, habits, learning |
-| Family info | `Areas/family/` | Important dates, notes |
+The hook runs `scripts/user_prompt.sh` which:
+- Detects brain dump keywords
+- Lists current brain structure (existing People, Projects, Areas)
+- Injects routing rules as additional context
 
-### What NOT to Capture
+### Process Sessions (On-Demand)
 
-- Casual chat without information value
-- Temporary queries ("what time is it")
-- Information easily searchable online
+`/brain:process` reads unprocessed Claude Code transcripts from `~/.claude/projects/`.
+Uses `scripts/extract.py` to parse JSONL transcripts into clean markdown, then routes content.
+
+See `commands/process.md` for full instructions.
+
+## Routing Rules
+
+| Content | Destination |
+|---------|------------|
+| Person interaction | `People/{name}.md` |
+| Task / TODO | `Tasks/tasks.md` |
+| Project work | `Projects/{name}/{name}.md` |
+| Technical learning | `Notes/{topic}.md` |
+| Decision | `Notes/decision-{topic}.md` |
+| Daily summary | `Journal/YYYY-MM-DD.md` |
+| Career/professional | `Areas/career.md` |
+| Health/fitness | `Areas/health.md` |
+| Family | `Areas/family.md` |
+| Finances | `Areas/finances.md` |
+| Links/articles | `Resources/` |
+| Unclear | `Inbox/` |
 
 ## Note Format
 
@@ -101,8 +86,8 @@ Every note uses minimal frontmatter:
 ```markdown
 ---
 created: YYYY-MM-DD
+updated: YYYY-MM-DD
 tags: [tag1, tag2]
-related: ["[[Other Note]]"]
 ---
 
 # Title
@@ -110,67 +95,28 @@ related: ["[[Other Note]]"]
 Content here. Link to [[Related Notes]] freely.
 ```
 
-Use templates from `assets/templates/` when creating new notes.
-
-## Daily Workflow
-
-### During Day
-- Dump everything to `Inbox/`
-- Don't organize — just capture
-
-### Evening (5-10 min)
-Process Inbox/:
-1. Each item → permanent home or delete
-2. Update `Journal/YYYY-MM-DD.md` with summary
-3. `git commit -am "daily processing"`
-
-## Weekly Review (Sunday, 15 min)
-
-1. Review all Projects/ — still active?
-2. Check Areas/ — anything neglected?
-3. Move completed projects to Archive/
-4. Update `Tasks/index.md`
-
-See [references/workflows.md](references/workflows.md) for detailed workflows.
-
 ## Commands
 
-| User says | Action |
-|-----------|--------|
-| "Set up remember" | Run onboarding, create structure |
-| "Save this: [text]" | Capture to Inbox/ |
-| "New project: [name]" | Create Projects/name/ with template |
-| "Add person: [name]" | Create People/name.md with template |
-| "What do I know about X?" | Search & retrieve |
-| "Daily review" | Process Inbox/, update Journal/ |
-| "Weekly review" | Full system review |
-
-## Linking
-
-Use `[[wiki-links]]` to connect notes:
-
-```markdown
-Met with [[People/john]] about [[Projects/acme/index|ACME Project]].
-Relevant insight: [[Notes/negotiation-tactics]]
-```
-
-## Projects vs Areas
-
-| Projects | Areas |
-|----------|-------|
-| Have deadlines | No end date |
-| Can be "done" | Maintained forever |
-| Specific outcome | Standard to uphold |
+| Command | Action |
+|---------|--------|
+| `/brain:init` | Initialize brain structure |
+| `/brain:process` | Process unprocessed Claude sessions |
+| `/brain:status` | Show brain statistics |
+| "remember this: X" | Immediate brain dump |
+| "save this: X" | Immediate brain dump |
 
 ## File Naming
 
 - Folders: `kebab-case/`
 - Files: `kebab-case.md`
 - Dates: `YYYY-MM-DD.md`
-- People: `firstname-lastname.md`
+- People: `firstname.md` or `firstname-lastname.md`
 
-## References
+## Linking
 
-- [Structure Guide](references/structure.md) — Detailed folder breakdown
-- [Workflows](references/workflows.md) — Daily/weekly/monthly workflows
-- [Templates](assets/templates/) — Note templates
+Use `[[wiki-links]]` to connect notes:
+
+```markdown
+Met with [[People/archie]] about [[Projects/impact3/impact3|Impact3]].
+Relevant insight: [[Notes/n8n-workflow-patterns]]
+```

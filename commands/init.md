@@ -19,17 +19,13 @@ Creates the Remember directory structure and sets up your Second Brain.
 
 **Prompt user:**
 ```
-🧠 Remember Initialization
-
 Where should I create your Second Brain?
 
 Default: ~/remember
 Custom: Enter full path (e.g., ~/Documents/my-brain)
-
-Path: ___
 ```
 
-If user presses Enter → use default `~/remember`  
+If user presses Enter → use default `~/remember`
 If user enters path → validate and use custom path
 
 **Validate path:**
@@ -44,7 +40,7 @@ Write chosen path to `~/.claude/plugins/remember/config.json`:
 ```json
 {
   "paths": {
-    "data_root": "/chosen/path"    // ⬅️ User's choice
+    "data_root": "/chosen/path"
   }
 }
 ```
@@ -54,14 +50,13 @@ This ensures all future commands use the same path.
 ### 2. Create Directory Structure
 
 ```bash
-mkdir -p ~/remember/
+mkdir -p {chosen_path}/
 ├── content/
 │   ├── Inbox/
 │   ├── Projects/
 │   ├── People/
 │   ├── Areas/
 │   ├── Notes/
-│   │   └── Meta/
 │   ├── Resources/
 │   ├── Journal/
 │   ├── Tasks/
@@ -94,29 +89,140 @@ mkdir -p ~/remember/
 └── README.md
 ```
 
-### 3. Create Identity
+### 3. Create Default Areas
+
+Areas are **flat files** — one file per area, no sub-folders, no index pages.
+
+Create these 4 default area files in `content/Areas/`:
+
+**`content/Areas/career.md`:**
+```yaml
+---
+created: {{date}}
+tags: [area, career]
+related: []
+---
+
+# Career
+
+Professional development, skills, and long-term positioning.
+
+## Current Role
+
+- [Your role and company]
+
+## Goals
+
+- [Current professional goals]
+
+## Skills to Develop
+
+- [ ] [Skill 1]
+- [ ] [Skill 2]
+
+## Log
+
+```
+
+**`content/Areas/health.md`:**
+```yaml
+---
+created: {{date}}
+tags: [area, health]
+related: []
+---
+
+# Health
+
+Fitness, nutrition, physical and mental wellbeing.
+
+## Routines
+
+- [Exercise schedule, habits]
+
+## Goals
+
+- [Health goals]
+
+## Log
+
+```
+
+**`content/Areas/family.md`:**
+```yaml
+---
+created: {{date}}
+tags: [area, family]
+related: []
+---
+
+# Family
+
+Relationships, quality time, and important dates.
+
+## People
+
+| Who | Relationship | Notes |
+|-----|-------------|-------|
+| [Name] | [Relationship] | |
+
+## Important Dates
+
+| Person | Date | Notes |
+|--------|------|-------|
+| [Name] | [Date] | |
+
+## Log
+
+```
+
+**`content/Areas/finances.md`:**
+```yaml
+---
+created: {{date}}
+tags: [area, finances]
+related: []
+---
+
+# Finances
+
+Budget, investments, income, and financial planning.
+
+## Income Streams
+
+- [Source 1]
+
+## Goals
+
+- [Financial goals]
+
+## Log
+
+```
+
+### 4. Create Identity
 
 Ask user questions to create `identity.json`:
 
 **Questions:**
 1. What's your name? (default: User)
 2. Technical level? (technical / semi-technical / non-technical / chaotic)
-3. Preferred language? (Romanian / English / Both)
+3. Preferred language? (English / other)
 
 **Create `learning/meta/identity.json`:**
 ```json
 {
   "name": "User",
   "technical_level": "technical",
-  "language": "Romanian",
+  "language": "English",
   "sessions_count": 0,
-  "first_session": "2026-02-08",
-  "last_session": "2026-02-08",
+  "first_session": "{{date}}",
+  "last_session": "{{date}}",
   "clustering_flags": {}
 }
 ```
 
-### 4. Create Templates
+### 5. Create Templates
 
 **`content/Templates/project.md`:**
 ```yaml
@@ -133,12 +239,7 @@ tags: [project]
 
 ## Status
 - **Created:** {{date}}
-- **Last Active:** {{date}}
 - **Status:** Active
-
-## Tech Stack
-- [Technology 1]
-- [Technology 2]
 
 ## Recent Activity
 
@@ -146,10 +247,7 @@ tags: [project]
 - [[People/name|Name]] - Role
 
 ## Related
-- [[Areas/domain|Domain]]
-
-## Decisions
-See: [[Projects/{{name}}/decisions|Decisions Log]]
+- [[Areas/career|Career]]
 ```
 
 **`content/Templates/person.md`:**
@@ -157,14 +255,13 @@ See: [[Projects/{{name}}/decisions|Decisions Log]]
 ---
 created: {{date}}
 tags: [person]
-last_contact: {{date}}
 ---
 
 # {{name}}
 
-## Info
+## Who
+- **Role:** [What they do]
 - **Relationship:** [How you know them]
-- **Context:** [Relevant context]
 
 ## Interactions
 
@@ -172,7 +269,40 @@ last_contact: {{date}}
 [First interaction]
 
 ## Related
-- [[Projects/project|Project]] - Collaborates on
+- [[Projects/project|Project]]
+```
+
+**`content/Templates/area.md`:**
+```yaml
+---
+created: {{date}}
+tags: [area]
+related: []
+---
+
+# {{title}}
+
+[What this area covers]
+
+## Goals
+
+- [Current goals for this area]
+
+## Log
+
+```
+
+**`content/Templates/note.md`:**
+```yaml
+---
+created: {{date}}
+tags: [note]
+related: []
+---
+
+# {{title}}
+
+[Content]
 ```
 
 **`content/Templates/journal.md`:**
@@ -205,15 +335,13 @@ tags: [journal]
 [Reflections]
 ```
 
-Create similar templates for area.md and note.md.
-
-### 5. Initialize Git (Optional)
+### 6. Initialize Git (Optional)
 
 Ask: "Initialize git repository?"
 
 If yes:
 ```bash
-cd ~/remember
+cd {chosen_path}
 git init
 git add .
 git commit -m "feat: initialize Remember"
@@ -226,11 +354,11 @@ learning/observations/archive/
 .DS_Store
 ```
 
-### 6. Create README
+### 7. Create README
 
 **`README.md`:**
 ```markdown
-# 🧠 Remember
+# Remember
 
 Your extended Second Brain that learns as you work in Claude Code.
 
@@ -240,8 +368,16 @@ A hybrid PARA + Zettelkasten system with automatic population and pattern learni
 
 ## Structure
 
-- `content/` - Your Second Brain (Projects, People, Notes, Journal)
+- `content/` - Your Second Brain (Projects, People, Areas, Notes, Journal)
 - `learning/` - Meta-learning (observations, instincts, evolved skills)
+
+## Areas
+
+Areas are flat files — one file per life/work domain:
+- `Areas/career.md` — Professional development
+- `Areas/health.md` — Fitness, wellbeing
+- `Areas/family.md` — Relationships, quality time
+- `Areas/finances.md` — Budget, investments
 
 ## Usage
 
@@ -257,27 +393,22 @@ Work normally in Claude Code. Remember:
 - `/brain:export` - Share learned patterns
 - `/brain:import` - Adopt patterns from others
 
-## Getting Started
-
-Just work! The brain-curator agent runs in background and maintains everything.
-
-Check `content/Journal/` daily to see what was captured.
-
 ---
 
 Created: {{date}}
 Plugin: remember v1.0.0
 ```
 
-### 7. Confirm Success
+### 8. Confirm Success
 
 Return message:
 ```
-✅ Remember initialized at ~/remember/
+Remember initialized at {chosen_path}/
 
 Structure created:
 - content/ (Second Brain)
 - learning/ (Meta-learning)
+- Areas: career, health, family, finances
 - Templates ready
 - Identity configured
 
@@ -291,7 +422,7 @@ Commands:
 
 ## Error Handling
 
-- If `~/remember/` already exists: ask to confirm overwrite or skip
+- If path already exists: ask to confirm overwrite or skip
 - If custom path not writable: suggest alternative
 - If templates fail: create minimal versions
 

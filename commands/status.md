@@ -15,9 +15,14 @@ Displays learning statistics, recent activity, and clustering status.
 
 ## What it shows
 
+### 0. Resolve Brain Path
+
+Read `~/.claude/plugins/remember/config.json` → get `paths.data_root` value.
+Use this as `{brain_path}` below. If config missing → tell user to run `/remember:init`.
+
 ### 1. Identity Summary
 
-Read `~/remember/learning/meta/identity.json`:
+Read `{brain_path}/System-learnings/meta/identity.json`:
 
 ```
 🧠 Remember Status
@@ -31,7 +36,7 @@ Last Session: 2026-02-08
 
 ### 2. Second Brain Statistics
 
-Count entities in `content/`:
+Count entities in brain root:
 
 ```
 📚 Second Brain Content
@@ -56,7 +61,7 @@ Tasks: 15 open, 8 completed
 
 ### 3. Learning Statistics
 
-Read `~/remember/learning/meta/stats.json`:
+Read `{brain_path}/System-learnings/meta/stats.json`:
 
 ```
 🧠 Meta-Learning
@@ -73,7 +78,7 @@ Evolved: 2 skills, 0 agents, 0 commands
 
 ### 4. Clustering Status
 
-Read `~/remember/learning/meta/clustering-flags.json`:
+Read `{brain_path}/System-learnings/meta/clustering-flags.json`:
 
 ```
 🌱 Ready to Evolve
@@ -110,17 +115,17 @@ Patterns detected:
 
 ```javascript
 async function brainStatus() {
-  const brainRepo = '~/remember';
+  const brainRepo = '{brain_path}'; // from ~/.claude/plugins/remember/config.json
   
   // 1. Identity
   const identity = await readJSON(`${brainRepo}/learning/meta/identity.json`);
   
   // 2. Count entities
-  const projects = await countFiles(`${brainRepo}/content/Projects`);
-  const people = await countFiles(`${brainRepo}/content/People`);
-  const areas = await countFiles(`${brainRepo}/content/Areas`);
-  const notes = await countFiles(`${brainRepo}/content/Notes`);
-  const journalDays = await countFiles(`${brainRepo}/content/Journal`);
+  const projects = await countFiles(`${brainRepo}/Projects`);
+  const people = await countFiles(`${brainRepo}/People`);
+  const areas = await countFiles(`${brainRepo}/Areas`);
+  const notes = await countFiles(`${brainRepo}/Notes`);
+  const journalDays = await countFiles(`${brainRepo}/Journal`);
   
   // 3. Learning stats
   const stats = await readJSON(`${brainRepo}/learning/meta/stats.json`);
