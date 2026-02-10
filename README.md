@@ -54,12 +54,14 @@ This creates your brain directory structure and Persona file. Default location: 
 
 ## How It Works
 
-### Hook (Automatic)
+### Hooks (Automatic)
 
-On every `UserPromptSubmit`, `scripts/user_prompt.sh` runs:
+| Hook | When | What |
+|------|------|------|
+| `SessionStart` | Session begins | Loads `Persona.md` into Claude's context |
+| `UserPromptSubmit` | Every message | Detects brain dump keywords, injects routing rules |
 
-- **First message** of a session: loads `Persona.md` and injects it as context, along with active projects and today's journal status.
-- **Brain dump keywords** detected: injects full routing rules (existing People, Projects, Areas) so Claude knows where to write.
+`SessionStart` fires once and injects your Persona as model-visible context. `UserPromptSubmit` only activates when it detects keywords like "remember this" — then it injects the full routing instructions (existing People, Projects, Areas) so Claude knows where to write.
 
 ### Processing (Manual)
 
