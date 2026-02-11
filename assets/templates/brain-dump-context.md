@@ -1,6 +1,6 @@
 1. ROUTING:
 - Person interaction → People/name.md
-- Task/TODO → Tasks/tasks.md
+- Task/TODO → see Task Routing below
 - Project work → Projects/name/name.md
 - Technical learning → Notes/topic.md
 - Decision → Notes/decision-topic.md
@@ -8,6 +8,13 @@
 - Area (career/health/family/finances) → Areas/area.md
 - Link/article → Resources/
 - Unclear → Inbox/
+
+TASK ROUTING (important):
+- URGENT task (deadline today/this week, high priority) → Tasks/tasks.md (## Focus section, max 10 total)
+- IMPORTANT task (ready to start, next in queue) → Tasks/tasks.md (## Next Up section, max 15 total)
+- PROJECT-SPECIFIC task (detailed, backlog, context-heavy) → Projects/name/name.md (## Tasks section)
+- Tasks.md = FOCUS file (what to work on NOW). Project files = detailed backlog.
+- NEVER duplicate tasks between tasks.md and project files — task lives in ONE place only.
 
 2. PROCESSING:
 - READ existing file FIRST — match style, append don't replace
@@ -26,16 +33,18 @@
 4. WHEN TO WRITE CONTENT IN MULTIPLE FILES (not just links):
 - Only update multiple files when adding ACTUAL CONTENT, not just backlinks:
 - People/name.md → Add meaningful interaction entry to ## Interactions, update last_contact
-- Projects/name/name.md → Add work log entry to ## Log with what was done
+- Projects/name/name.md → Add work log entry to ## Log with what was done, add tasks to ## Tasks section
 - Journal/date.md → Daily summary grouped by project with [[wikilinks]] to everything
-- Tasks/tasks.md → New tasks with [[Projects/name/name|Name]] and date
+- Tasks/tasks.md → ONLY urgent (Focus) or important (Next Up) tasks. Link to project: [[Projects/name/name|Name]]
 - Persona.md → New evidence line if behavioral pattern observed
 
 5. FORMAT:
 - People: frontmatter (created, updated, tags, role, relationship, last_contact), sections: ## Who, ## Notes to Remember, ## Interactions
-- Projects: sections: ## Overview, ## Active Tasks, ## Log
+- Projects: sections: ## Overview, ## Tasks (Active/Backlog/Done), ## Roadmap (if applicable), ## Log
 - Journal: sections grouped by ## Project Name (not chronological)
-- Tasks: - [ ] Description [[Projects/name/name|Name]] (YYYY-MM-DD)
+- Tasks/tasks.md: ## Focus (max 10, urgent), ## Next Up (max 15, important)
+- Project tasks: - [ ] Description (in Projects/name/name.md under ## Tasks)
+- Roadmaps: DESCRIPTIVE TEXT in ## Roadmap section, NOT checkboxes. Roadmap = strategic direction (Phase 1-3), tasks = concrete next-actions.
 - Notes: frontmatter with related: wikilinks array
 
 6. AFTER SAVE — Report:
