@@ -124,42 +124,150 @@ Read the extracted content and route to the appropriate location:
 - If an area grows >200 lines → extract sections to `Notes/` and link
 - If an area becomes time-bound → move to `Projects/`
 
-#### Task Routing Intelligence (Auto-Classification)
+#### Task Routing Intelligence (AI-Driven Classification)
 
-**Scan task for urgency signals:**
+**YOU (the AI) classify tasks by understanding context and urgency semantically, not via keywords.**
 
-| Urgency | Keywords | Destination | Max Count |
-|---------|----------|-------------|-----------|
-| **URGENT** | "by Friday", "asap", "urgent", "today", "this week", "deadline", specific near date | `Tasks/tasks.md` → ## Focus | 10 |
-| **IMPORTANT** | "should", "need to", "reminder", "important", "priority" | `Tasks/tasks.md` → ## Next Up | 15 |
-| **BACKLOG** | "eventually", "maybe", "someday", "Phase X", "v2", "future" | `Projects/{name}/{name}.md` → ## Tasks → ### Backlog | No limit |
+**Goal:** Route tasks to the right place based on urgency and importance.
 
-**Examples:**
+**Classification Categories:**
 
-```markdown
-"Deploy site by Friday"
-→ Urgency: URGENT (deadline keyword + near date)
-→ Destination: Tasks/tasks.md (Focus)
-→ Format: - [ ] Deploy site by Friday [[Projects/myproject/myproject|MyProject]] ⚡
+| Urgency | Description | Destination | Max Count |
+|---------|-------------|-------------|-----------|
+| **URGENT** | Has a near deadline or blocking priority | `Tasks/tasks.md` → ## Focus | 10 |
+| **IMPORTANT** | Needs to be done, but no immediate deadline | `Tasks/tasks.md` → ## Next Up | 15 |
+| **BACKLOG** | Future work, nice-to-have, roadmap item | `Projects/{name}/{name}.md` → ## Tasks → ### Backlog | No limit |
 
-"Research payment providers"
-→ Urgency: IMPORTANT (no deadline, but action verb)
-→ Destination: Tasks/tasks.md (Next Up)
-→ Format: - [ ] Research payment providers [[Projects/myproject/myproject|MyProject]]
+**How to Classify (Semantic Understanding):**
 
-"Phase 2 features: user dashboard"
-→ Urgency: BACKLOG (phase keyword, future scope)
-→ Destination: Projects/myproject/myproject.md (Tasks → Backlog)
-→ Format: - [ ] User dashboard implementation
-```
+**URGENT — Ask yourself:**
+- Does this have a deadline within the next 7 days?
+- Is someone waiting on this?
+- Will something break if this isn't done soon?
+- Does the user express time pressure? (any language: "urgent", "asap", "de mâine", "azi", "by Friday")
+
+**IMPORTANT — Ask yourself:**
+- Is this a clear action item without a deadline?
+- Should this be done relatively soon?
+- Is it a stepping stone for something bigger?
+- User says "trebuie să" / "need to" / "should" without urgency?
+
+**BACKLOG — Ask yourself:**
+- Is this future work? ("Phase 2", "v2", "eventually", "someday")
+- Is it exploratory? ("research", "maybe", "consider")
+- Is it part of a roadmap but not active work?
+- User says "eventual" / "later" / "când am timp"?
+
+**Multi-Language Urgency Signals:**
+
+**Urgent (any of these):**
+- English: "by [day/date]", "urgent", "asap", "today", "this week", "deadline", "blocking"
+- Romanian: "de mâine", "urgent", "azi", "săptămâna asta", "până [când]", "blochează"
+- Context: Specific near date mentioned (numeric or day name)
+
+**Important (any of these):**
+- English: "should", "need to", "important", "priority", "reminder"
+- Romanian: "trebuie", "ar trebui", "important", "prioritate", "să nu uit"
+- Context: Action verb without deadline
+
+**Backlog (any of these):**
+- English: "eventually", "someday", "maybe", "Phase X", "v2", "future", "later", "nice to have"
+- Romanian: "eventual", "cândva", "poate", "viitor", "mai târziu", "când am timp"
+- Context: Conditional or distant future tense
+
+**Edge Cases:**
+
+1. **Ambiguous urgency** → Default to IMPORTANT (safer than backlog)
+2. **Focus already at 10 items** → Push to Next Up (even if urgent)
+3. **Next Up already at 15 items** → Push to Backlog + note in journal
+4. **No clear project link** → Still add to tasks.md with generic category
 
 **Task Format:**
+
 ```markdown
 # In Tasks/tasks.md (Focus/Next Up):
 - [ ] Task description [[Projects/project/project|Project Name]] [⚡ if urgent] (YYYY-MM-DD)
 
 # In Projects/{name}/{name}.md (Backlog):
 ## Tasks
+### Backlog
+- [ ] Task description (session date if relevant)
+```
+
+**Classification Examples:**
+
+**Example 1: Urgent**
+```
+User: "Deploy Maxwell by Friday, clientul așteaptă"
+Analysis:
+- Deadline: "by Friday" (2-3 days away)
+- Urgency signal: "așteaptă" (someone waiting)
+→ URGENT → tasks.md (Focus)
+→ Format: - [ ] Deploy Maxwell by Friday [[Projects/dollie/dollie|Dollie]] ⚡ (2026-02-12)
+```
+
+**Example 2: Important**
+```
+User: "Trebuie să researchez payment providers pentru 99marketing"
+Analysis:
+- Action verb: "trebuie" (need to)
+- No deadline mentioned
+→ IMPORTANT → tasks.md (Next Up)
+→ Format: - [ ] Research payment providers [[Projects/99-marketing/99-marketing|99 Marketing]] (2026-02-12)
+```
+
+**Example 3: Backlog**
+```
+User: "Phase 2: add user dashboard pentru supabrain, eventual"
+Analysis:
+- Future scope: "Phase 2"
+- Low urgency: "eventual"
+→ BACKLOG → Projects/supabrain/supabrain.md
+→ Format: - [ ] User dashboard implementation (under ## Tasks → ### Backlog)
+```
+
+**Linking Rules:**
+
+- If task mentions a project → add `[[Projects/{name}/{name}|Name]]` link
+- If project not mentioned but you know context → infer and link
+- If truly generic → add to tasks.md without project link (user can add later)
+- Always add session date for traceability
+
+**Duplication Prevention:**
+
+- **NEVER duplicate** same task in both tasks.md AND project file
+- **Rule:** If it goes to Focus/Next Up → link to project, but don't duplicate content in project file
+- **Exception:** Roadmap items in project files are NOT tasks (descriptive text, not checkboxes)
+
+**Zero Duplication Example:**
+
+```markdown
+# tasks.md (Focus):
+- [ ] Deploy Maxwell by Friday [[Projects/dollie/dollie|Dollie]] ⚡ (2026-02-12)
+
+# Projects/dollie/dollie.md:
+## Tasks
+### Active
+[No entry here - it's in Focus already]
+
+## Roadmap
+### Phase 1
+- Maxwell integration (in progress, deploy scheduled Friday)
+  ↑ This is descriptive, NOT a checkbox task
+```
+
+**After Classification:**
+
+1. Write task to appropriate location (tasks.md or project file)
+2. Add session date for context
+3. Link to project if applicable
+4. Mark urgent tasks with ⚡
+5. Report in final summary where task was added
+
+**CRITICAL: Understand urgency semantically across languages. Context > keywords.**
+
+
+
 ### Backlog
 - [ ] Task description
 ```
@@ -170,76 +278,158 @@ Read the extracted content and route to the appropriate location:
 - If Focus already has 10 items → push to Next Up
 - Never duplicate between tasks.md and project files (choose one)
 
-#### Persona Learning (Evidence Extraction)
+#### Persona Learning (AI-Driven Evidence Extraction)
 
-**After routing ALL content, analyze sessions for behavioral patterns.**
+**After routing ALL content, analyze sessions for behavioral patterns using semantic understanding.**
 
-**Pattern Categories:**
+**YOU (the AI) analyze the session content. Don't rely on keyword matching - understand context in any language.**
 
-1. **User Corrections** — user changed Claude's approach
-2. **Repeated Workflows** — same sequence of actions multiple times
-3. **Communication Preferences** — tone, formality, language
-4. **Decision-Making Patterns** — how user evaluates options
-5. **Code Style Preferences** — naming, structure, frameworks
+**Pattern Categories to Detect:**
 
-**Detection Logic:**
+1. **User Corrections**
+   - User changed your approach or rejected a suggestion
+   - User said "no, do it this way" (în orice limbă)
+   - User modified your output
+   - Example detection: User disagreed with how you did something → note what they prefer instead
 
-```markdown
-# Scan session for:
+2. **Stated Preferences**
+   - User explicitly says what they like/don't like
+   - "I prefer X over Y", "Never use Z", "Always do W"
+   - Language-agnostic: "prefer" = "preferă" = "mai bine cu"
+   - Example: User says they prefer concise responses → add evidence
 
-## User Corrections
-- User said "no, do it this way instead"
-- User modified Claude's output
-- User rejected a suggestion
-→ Add to Persona.md ## Evidence Log: "[DATE] User prefers X over Y (context)"
+3. **Repeated Workflows**
+   - Same sequence of actions appears multiple times across sessions
+   - User mentions "I always..." or "usually I..."
+   - Pattern: If user does X → Y → Z repeatedly → it's a workflow
+   - Example: User always runs tests before commit → document workflow
 
-## Repeated Workflows
-- Same action sequence appears 3+ times across sessions
-- User mentions "I always do X"
-→ Add to Persona.md ## Workflow section
+4. **Communication Style**
+   - How user writes: concise vs detailed, formal vs casual
+   - Language preferences: English for code, Romanian for casual
+   - Tone indicators: emojis, punctuation, formality
+   - Example: User uses "hai să" instead of "let's" → Romanian preference for casual
 
-## Communication Preferences
-- User writes in Romanian/English/mixed
-- User prefers concise vs detailed responses
-- User uses specific terminology
-→ Add to Persona.md ## Communication section
+5. **Decision-Making Patterns**
+   - What criteria user uses to evaluate options
+   - What they prioritize (speed vs quality, cost vs features, etc.)
+   - Consistency in choices across sessions
+   - Example: User always picks simpler solution → document preference
 
-## Decision-Making
-- User evaluates options based on X criteria
-- User prioritizes Y over Z consistently
-→ Add to Persona.md ## Decision-Making section
+6. **Code/Technical Style**
+   - Naming conventions user prefers
+   - Frameworks/tools they favor
+   - Architecture patterns they use
+   - Example: User consistently uses kebab-case → add to Code Style
 
-## Code Style
-- User consistently uses specific naming patterns
-- User prefers certain frameworks/libraries
-- User has strong opinions on architecture
-→ Add to Persona.md ## Code Style section
-```
+**Detection Logic (Semantic, Not Regex):**
+
+Ask yourself these questions when reading the session:
+
+- **Did the user correct me?** → What did they want instead? Why?
+- **Did the user state a preference explicitly?** → What exactly?
+- **Did the user repeat a behavior?** → Check past sessions for pattern
+- **How does the user communicate?** → Formal? Casual? Mixed language?
+- **How does the user make decisions?** → What matters to them?
+- **What technical choices do they make consistently?** → Patterns?
+
+**Multi-Language Support:**
+
+- Romanian: "prefer", "mai bine", "nu-mi place", "întotdeauna"
+- English: "I prefer", "always", "never use", "better with"
+- Mixed: User switches languages → note that preference
+- Understand intent, not just keywords: "de mâine" = urgent, "eventual" = backlog
 
 **Update Rules:**
 
-1. **Reinforces existing pattern** → Add evidence line with `[DATE]` prefix
-2. **New pattern** → Add to appropriate section + evidence
-3. **Contradicts pattern** → Update section, note change in evidence
+1. **Read Persona.md first** → see existing patterns
+2. **If session reinforces existing pattern** → Add evidence line:
+   ```markdown
+   - [YYYY-MM-DD] User again preferred X over Y (context: project Z)
+   ```
+3. **If session reveals NEW pattern** → Add to appropriate section + evidence:
+   ```markdown
+   ## Communication
+   - Prefers concise, no-fluff responses
+   
+   ## Evidence Log
+   - [YYYY-MM-DD] User asked to skip intro/outro in responses
+   ```
+4. **If session CONTRADICTS pattern** → Update section, note change:
+   ```markdown
+   ## Evidence Log
+   - [YYYY-MM-DD] Previous preference changed — now wants detailed explanations for complex topics
+   ```
 
-**Persona.md Update:**
+**What to Capture vs Skip:**
+
+**Capture:**
+- Clear, meaningful behavioral patterns
+- Preferences stated explicitly or shown repeatedly
+- Communication style signals (language, tone, formality)
+- Decision criteria that appear consistent
+- Technical choices made 3+ times
+
+**Skip:**
+- One-off actions with no pattern
+- Routine/trivial behavior (opening files, running commands)
+- Contradictory signals (user experimenting, not deciding)
+- Ambiguous situations (unclear intent)
+
+**Evidence Format:**
+
 ```markdown
----
-updated: {SESSION_DATE}  # Most recent session processed
----
+[YYYY-MM-DD] Brief description of what happened + what it reveals
 
-# Persona
+Good examples:
+- [2026-02-12] User corrected task routing — prefers Focus/Next Up structure over distributed
+- [2026-02-12] User switched to Romanian mid-conversation for casual topic
+- [2026-02-11] User chose flat Areas structure over nested folders (simplicity priority)
 
-## Communication
-- Prefers concise, no-fluff responses
-- Uses Romanian for casual, English for technical
-
-## Evidence Log
-- [2026-02-12] Corrected task routing — prefers Focus/Next Up over distributed
-- [2026-02-11] Chose flat Areas structure over nested folders
+Bad examples:
+- [2026-02-12] User opened a file (too trivial)
+- [2026-02-12] User said something (no insight)
+- [2026-02-12] Pattern detected (what pattern??)
 ```
 
-**ONLY capture clear, meaningful patterns. Skip routine/trivial behavior.**
+**Persona.md Update Process:**
+
+1. **Read current Persona.md** → load existing knowledge
+2. **Analyze session semantically** → detect patterns (questions above)
+3. **Determine updates needed:**
+   - New evidence for existing pattern → append to Evidence Log
+   - New pattern → add to appropriate section + evidence
+   - Contradiction → update section + note change
+4. **Write updates** → prepend new evidence (newest first)
+5. **Update frontmatter** → `updated: {SESSION_DATE}`
+
+**Example Analysis:**
+
+**Session excerpt:**
+```
+User: "hai să implementezi 5-8. vezi ca in instructiuni sa nu existe referince la nume reale"
+```
+
+**Analysis (semantic understanding):**
+- Language: Romanian ("hai să" = "let's")
+- Preference: Generic examples over real data (privacy/reusability concern)
+- Communication: Direct, concise instruction
+- Decision criteria: Values clean documentation
+
+**Persona update:**
+```markdown
+## Evidence Log
+- [2026-02-12] User requested removing hardcoded names from docs — values generic, reusable examples
+- [2026-02-12] User gave instructions in Romanian with direct, concise style
+```
+
+**CRITICAL: Use AI semantic understanding, NOT keyword matching. Understand intent across languages.**
+
+**After analysis:**
+- If meaningful patterns found → update Persona.md
+- If no clear patterns → skip (better to miss than hallucinate)
+- Report what was updated in final summary
+
 
 #### Resource Capture Intelligence (Web URLs)
 
