@@ -15,14 +15,13 @@ Your personal knowledge repository. Two ways to populate it:
 
 ## Brain Location
 
-Read config from `~/.claude/plugin-config/remember/config.json` (user scope) or `.claude/plugin-config/remember/config.json` (project scope) → `paths.data_root`.
-Falls back to `${CLAUDE_PLUGIN_ROOT}/config.defaults.json` → `~/remember/`.
+Read `$REMEMBER_BRAIN_PATH` env var, fallback `~/remember`.
 
 ## First Run Check
 
 **Before any action**, check if brain is initialized:
 
-1. Read config → get brain path
+1. Get brain path from `$REMEMBER_BRAIN_PATH` (fallback `~/remember`)
 2. Check if path exists with expected structure (Inbox/, Projects/, Areas/)
 3. If NOT found → Tell user to run `/brain:init`
 4. If found → Proceed

@@ -2,43 +2,40 @@
 set -euo pipefail
 # Remember - User Prompt Hook
 # Detects brain dump keywords and injects routing instructions.
-# Fires on every UserPromptSubmit. Persona loading is handled by SessionStart hook.
 
 [ "${REMEMBER_PROCESSING:-}" = "1" ] && exit 0
 
 # Read stdin
 INPUT=$(cat)
 
-# Resolve plugin root
+# Resolve paths
 PLUGIN_ROOT="${CLAUDE_PLUGIN_ROOT:-$(cd "$(dirname "$0")/.." && pwd)}"
-
-# Get keywords from config and check for brain dump match
-BRAIN_DUMP=$(python3 -c "
-import json, sys
-sys.path.insert(0, '${PLUGIN_ROOT}/scripts')
-from config import load_config
-cfg = load_config()
-keywords = cfg['session']['brain_dump_keywords']
-text = sys.stdin.read().lower()
-print('true' if any(k in text for k in keywords) else 'false')
-" <<< "$INPUT" 2>/dev/null)
-
-[ "$BRAIN_DUMP" != "true" ] && exit 0
-
-# Use shared config resolver
-BRAIN_PATH=$(python3 "${PLUGIN_ROOT}/scripts/config.py" paths.data_root 2>/dev/null)
-BRAIN_PATH="${BRAIN_PATH:-$HOME/remember}"
-BRAIN_PATH="${BRAIN_PATH/#\~/$HOME}"
+BRAIN_PATH="${REMEMBER_BRAIN_PATH:-$HOME/remember}"
 
 [ ! -d "$BRAIN_PATH" ] && exit 0
 
-# Build the JSON output safely via Python
+# Single Python call: check keywords + build JSON output
 python3 -c "
 import json, os, sys
 
+input_text = sys.stdin.read().lower()
 brain_path = sys.argv[1]
 plugin_root = sys.argv[2]
 today = sys.argv[3]
+
+# Load keywords from config
+defaults_file = os.path.join(plugin_root, 'config.defaults.json')
+try:
+    with open(defaults_file) as f:
+        cfg = json.load(f)
+    keywords = cfg['session']['brain_dump_keywords']
+except Exception:
+    keywords = ['save this', 'remember this', 'brain dump', 'note to self',
+                'capture this', 'save to brain', 'write to brain', 'add to brain',
+                'salvează', 'notează', 'reține']
+
+if not any(k in input_text for k in keywords):
+    sys.exit(0)
 
 # Gather brain structure
 def ls_names(path, strip_ext=True, dirs_only=False):
@@ -78,6 +75,6 @@ output = {
 }
 
 print(json.dumps(output, ensure_ascii=False))
-" "$BRAIN_PATH" "$PLUGIN_ROOT" "$(date +%Y-%m-%d)"
+" "$BRAIN_PATH" "$PLUGIN_ROOT" "$(date +%Y-%m-%d)" <<< "$INPUT"
 
 exit 0

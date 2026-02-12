@@ -2,15 +2,8 @@
 set -euo pipefail
 # Remember - Session Start Hook
 # Loads Persona.md into Claude's context at the start of every session.
-# Fires once on SessionStart. Stdout is injected as model-visible context.
 
-# Resolve plugin root
-PLUGIN_ROOT="${CLAUDE_PLUGIN_ROOT:-$(cd "$(dirname "$0")/.." && pwd)}"
-
-# Use shared config resolver
-BRAIN_PATH=$(python3 "${PLUGIN_ROOT}/scripts/config.py" paths.data_root 2>/dev/null)
-BRAIN_PATH="${BRAIN_PATH:-$HOME/remember}"
-BRAIN_PATH="${BRAIN_PATH/#\~/$HOME}"
+BRAIN_PATH="${REMEMBER_BRAIN_PATH:-$HOME/remember}"
 
 [ ! -d "$BRAIN_PATH" ] && exit 0
 

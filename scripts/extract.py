@@ -16,13 +16,23 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
-from config import load_config, get_brain_root
+def _get_brain_root() -> Path:
+    return Path(os.path.expanduser(os.environ.get("REMEMBER_BRAIN_PATH", "~/remember")))
 
 
-BRAIN_ROOT = get_brain_root()
+def _load_defaults() -> dict:
+    defaults_file = Path(__file__).resolve().parent.parent / "config.defaults.json"
+    try:
+        with open(defaults_file, encoding="utf-8") as f:
+            return json.load(f)
+    except (OSError, json.JSONDecodeError):
+        return {"extract": {"max_assistant_text_len": 500, "min_session_size": 500}}
+
+
+BRAIN_ROOT = _get_brain_root()
 PROCESSED_FILE = BRAIN_ROOT / ".processed_sessions"
 CLAUDE_PROJECTS_DIR = Path.home() / ".claude" / "projects"
-MAX_ASSISTANT_TEXT_LEN = load_config()["extract"]["max_assistant_text_len"]
+MAX_ASSISTANT_TEXT_LEN = _load_defaults()["extract"]["max_assistant_text_len"]
 
 
 def get_processed_sessions():

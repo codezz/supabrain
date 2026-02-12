@@ -6,7 +6,7 @@ user-invocable: true
 
 # /brain:init - Initialize Remember
 
-Creates the Second Brain directory structure, Persona file, and configures permissions.
+Creates the Second Brain directory structure, Persona file, and configures the `REMEMBER_BRAIN_PATH` env var in Claude settings.
 
 ## Usage
 
@@ -34,50 +34,35 @@ If user enters path → validate and use custom path
 - Check if writable
 - If exists, ask to confirm or choose different path
 
-### 2. Save Config
+### 2. Detect Install Scope & Configure Settings
 
-Determine config location based on install scope:
-- If installed at **user scope** (default) → `~/.claude/plugin-config/remember/config.json`
-- If installed at **project scope** → `.claude/plugin-config/remember/config.json`
+Detect whether the plugin is installed at user scope or project scope:
+- If `${CLAUDE_PLUGIN_ROOT}` contains `/.claude/plugins/cache/` → **user scope** → settings file: `~/.claude/settings.json`
+- Otherwise → **project scope** → settings file: `.claude/settings.json`
 
-To detect scope: if `${CLAUDE_PLUGIN_ROOT}` contains `/.claude/plugins/cache/`, it's user scope. Otherwise, check if it's under a project directory for project scope.
+Also ask: **"Install globally or for this project?"** to let the user override the auto-detection.
 
-Create the directory and write the config:
-
-```bash
-mkdir -p ~/.claude/plugin-config/remember
-```
+**Read the target settings.json** (if it exists), then **MERGE** the following into it (don't overwrite existing keys):
 
 ```json
 {
-  "paths": {
-    "data_root": "/chosen/path"
-  }
-}
-```
-
-This location persists across plugin updates (it's outside the plugin cache).
-
-### 3. Add Permissions
-
-Add read/write permissions for the brain path to `~/.claude/settings.json` so the plugin can access files without prompting every time.
-
-Read `~/.claude/settings.json`, add to `permissions.allow`:
-
-```json
-{
+  "env": {
+    "REMEMBER_BRAIN_PATH": "/chosen/path"
+  },
   "permissions": {
-    "allow": [
-      "Read(//{brain_path}/**)",
-      "Edit(//{brain_path}/**)"
-    ]
+    "additionalDirectories": ["/chosen/path"]
   }
 }
 ```
 
-**Important:** Use double-slash `//` prefix for absolute paths. Merge with existing permissions, don't overwrite.
+**Merge rules:**
+- `env`: add/update the `REMEMBER_BRAIN_PATH` key, keep other env vars
+- `permissions.additionalDirectories`: append the brain path if not already present, keep existing entries
+- All other keys: preserve unchanged
 
-### 4. Create Directory Structure
+Write the merged JSON back to the settings file.
+
+### 3. Create Directory Structure
 
 ```
 {brain_path}/
@@ -98,7 +83,7 @@ Read `~/.claude/settings.json`, add to `permissions.allow`:
 mkdir -p {brain_path}/{Inbox,Journal,Projects,Areas,Notes,People,Tasks,Resources,Templates,Archive}
 ```
 
-### 5. Create Persona.md
+### 4. Create Persona.md
 
 Ask user 3 questions:
 
@@ -150,7 +135,7 @@ _Patterns observed across sessions. Newest first._
 
 ```
 
-### 6. Create Tasks File
+### 5. Create Tasks File
 
 Create `{brain_path}/Tasks/tasks.md`:
 
@@ -165,7 +150,7 @@ tags: [tasks, overview]
 Central hub for all tasks.
 ```
 
-### 7. Create Templates
+### 6. Create Templates
 
 **`Templates/project.md`:**
 ```markdown
@@ -207,7 +192,7 @@ tags: [person]
 - [First interaction]
 ```
 
-### 8. Initialize Git (Optional)
+### 7. Initialize Git (Optional)
 
 Ask: "Initialize git repository?"
 
@@ -225,14 +210,14 @@ Create `.gitignore`:
 .tmp/
 ```
 
-### 9. Confirm
+### 8. Confirm
 
 ```
 Second Brain initialized at {brain_path}/
 
 Structure: Inbox, Journal, Projects, Areas, Notes, People, Tasks, Resources, Archive
 Persona: Created (will learn your patterns over time)
-Permissions: Read/Edit auto-allowed for brain path
+Settings: REMEMBER_BRAIN_PATH and additionalDirectories written to {settings_file}
 Templates: project, person
 
 Next steps:
@@ -244,5 +229,5 @@ Next steps:
 ## Error Handling
 
 - If path already exists with content: skip existing dirs, only create missing ones
-- If settings.json has existing permissions: merge, don't overwrite
+- If settings.json has existing content: merge, don't overwrite
 - Safe to run multiple times (won't delete existing content)

@@ -18,9 +18,8 @@ Displays brain statistics: file counts, recent activity, and brain health.
 
 ### 1. Resolve Brain Path
 
-Read config from `~/.claude/plugin-config/remember/config.json` (user scope) or `.claude/plugin-config/remember/config.json` (project scope), falling back to `${CLAUDE_PLUGIN_ROOT}/config.defaults.json` → get `paths.data_root` value.
-Expand `~` to home directory. Use this as `{brain_path}`.
-If config missing or brain path doesn't exist → tell user to run `/brain:init`.
+Read `$REMEMBER_BRAIN_PATH` env var, fallback `~/remember`. Use this as `{brain_path}`.
+If brain path doesn't exist → tell user to run `/brain:init`.
 
 ### 2. Show Brain Statistics
 
