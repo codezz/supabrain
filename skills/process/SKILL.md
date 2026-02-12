@@ -162,17 +162,17 @@ Read the extracted content and route to the appropriate location:
 
 **Urgent (any of these):**
 - English: "by [day/date]", "urgent", "asap", "today", "this week", "deadline", "blocking"
-- Romanian: "de mâine", "urgent", "azi", "săptămâna asta", "până [când]", "blochează"
+- Other languages: "de mâine", "urgent", "azi", "săptămâna asta", "până [când]", "blochează"
 - Context: Specific near date mentioned (numeric or day name)
 
 **Important (any of these):**
 - English: "should", "need to", "important", "priority", "reminder"
-- Romanian: "trebuie", "ar trebui", "important", "prioritate", "să nu uit"
+- Other languages: "trebuie", "ar trebui", "important", "prioritate", "să nu uit"
 - Context: Action verb without deadline
 
 **Backlog (any of these):**
 - English: "eventually", "someday", "maybe", "Phase X", "v2", "future", "later", "nice to have"
-- Romanian: "eventual", "cândva", "poate", "viitor", "mai târziu", "când am timp"
+- Other languages: "eventual", "cândva", "poate", "viitor", "mai târziu", "când am timp"
 - Context: Conditional or distant future tense
 
 **Edge Cases:**
@@ -198,12 +198,12 @@ Read the extracted content and route to the appropriate location:
 
 **Example 1: Urgent**
 ```
-User: "Deploy Maxwell by Friday, clientul așteaptă"
+User: "Deploy site by Friday, clientul așteaptă"
 Analysis:
 - Deadline: "by Friday" (2-3 days away)
 - Urgency signal: "așteaptă" (someone waiting)
 → URGENT → tasks.md (Focus)
-→ Format: - [ ] Deploy Maxwell by Friday [[Projects/dollie/dollie|Dollie]] ⚡ (2026-02-12)
+→ Format: - [ ] Deploy site by Friday [[Projects/website-project/website-project|Website Project]] ⚡ (2026-02-12)
 ```
 
 **Example 2: Important**
@@ -213,16 +213,16 @@ Analysis:
 - Action verb: "trebuie" (need to)
 - No deadline mentioned
 → IMPORTANT → tasks.md (Next Up)
-→ Format: - [ ] Research payment providers [[Projects/99-marketing/99-marketing|99 Marketing]] (2026-02-12)
+→ Format: - [ ] Research payment providers [[Projects/marketing-project/marketing-project|Marketing Project]] (2026-02-12)
 ```
 
 **Example 3: Backlog**
 ```
-User: "Phase 2: add user dashboard pentru supabrain, eventual"
+User: "Phase 2: add user dashboard pentru saas-app, eventual"
 Analysis:
 - Future scope: "Phase 2"
 - Low urgency: "eventual"
-→ BACKLOG → Projects/supabrain/supabrain.md
+→ BACKLOG → Projects/saas-app/saas-app.md
 → Format: - [ ] User dashboard implementation (under ## Tasks → ### Backlog)
 ```
 
@@ -243,16 +243,16 @@ Analysis:
 
 ```markdown
 # tasks.md (Focus):
-- [ ] Deploy Maxwell by Friday [[Projects/dollie/dollie|Dollie]] ⚡ (2026-02-12)
+- [ ] Deploy site by Friday [[Projects/website-project/website-project|Website Project]] ⚡ (2026-02-12)
 
-# Projects/dollie/dollie.md:
+# Projects/website-project/website-project.md:
 ## Tasks
 ### Active
 [No entry here - it's in Focus already]
 
 ## Roadmap
 ### Phase 1
-- Maxwell integration (in progress, deploy scheduled Friday)
+- site integration (in progress, deploy scheduled Friday)
   ↑ This is descriptive, NOT a checkbox task
 ```
 
@@ -306,9 +306,9 @@ Analysis:
 
 4. **Communication Style**
    - How user writes: concise vs detailed, formal vs casual
-   - Language preferences: English for code, Romanian for casual
+   - Language preferences: English for code, native language for casual
    - Tone indicators: emojis, punctuation, formality
-   - Example: User uses "hai să" instead of "let's" → Romanian preference for casual
+   - Example: User uses "hai să" instead of "let's" → native language preference for casual
 
 5. **Decision-Making Patterns**
    - What criteria user uses to evaluate options
@@ -335,7 +335,7 @@ Ask yourself these questions when reading the session:
 
 **Multi-Language Support:**
 
-- Romanian: "prefer", "mai bine", "nu-mi place", "întotdeauna"
+- Other languages: "prefer", "mai bine", "nu-mi place", "întotdeauna"
 - English: "I prefer", "always", "never use", "better with"
 - Mixed: User switches languages → note that preference
 - Understand intent, not just keywords: "de mâine" = urgent, "eventual" = backlog
@@ -383,7 +383,7 @@ Ask yourself these questions when reading the session:
 
 Good examples:
 - [2026-02-12] User corrected task routing — prefers Focus/Next Up structure over distributed
-- [2026-02-12] User switched to Romanian mid-conversation for casual topic
+- [2026-02-12] User switched to native language mid-conversation for casual topic
 - [2026-02-11] User chose flat Areas structure over nested folders (simplicity priority)
 
 Bad examples:
@@ -411,7 +411,7 @@ User: "hai să implementezi 5-8. vezi ca in instructiuni sa nu existe referince 
 ```
 
 **Analysis (semantic understanding):**
-- Language: Romanian ("hai să" = "let's")
+- Language: native language ("hai să" = "let's")
 - Preference: Generic examples over real data (privacy/reusability concern)
 - Communication: Direct, concise instruction
 - Decision criteria: Values clean documentation
@@ -420,7 +420,7 @@ User: "hai să implementezi 5-8. vezi ca in instructiuni sa nu existe referince 
 ```markdown
 ## Evidence Log
 - [2026-02-12] User requested removing hardcoded names from docs — values generic, reusable examples
-- [2026-02-12] User gave instructions in Romanian with direct, concise style
+- [2026-02-12] User gave instructions in native language with direct, concise style
 ```
 
 **CRITICAL: Use AI semantic understanding, NOT keyword matching. Understand intent across languages.**
