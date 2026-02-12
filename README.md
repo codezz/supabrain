@@ -83,16 +83,17 @@ Your second brain is plain markdown files with wikilinks — zero-effort PKM tha
 ## Install
 
 ```bash
-git clone https://github.com/remember-md/remember.git ~/.claude/plugins/remember
-```
+# 1. Add the marketplace
+/plugin marketplace add remember-md/marketplace
 
-Then in Claude Code:
+# 2. Install the plugin
+/plugin install remember
 
-```
+# 3. Initialize your second brain
 /brain:init
 ```
 
-This creates your second brain directory structure and Persona file. Default location: `~/remember`.
+`/brain:init` creates your second brain directory structure and Persona file (default: `~/remember`), and configures permissions automatically.
 
 ---
 
@@ -156,30 +157,19 @@ Remember organizes your knowledge base using PARA + Zettelkasten:
 
 ## Configuration
 
-`/brain:init` saves your chosen brain path to a persistent config that survives plugin updates.
-
-Config location:
-- **User scope** (default): `~/.claude/plugin-config/remember/config.json`
-- **Project scope**: `.claude/plugin-config/remember/config.json`
-
-The plugin reads config in this order:
-1. User-scope config (persistent, created by `/brain:init`)
-2. Project-scope config (persistent)
-3. `config.defaults.json` shipped with the plugin (`~/remember`)
-
-To change your second brain location after init:
-
-```bash
-cat ~/.claude/plugin-config/remember/config.json
-```
+`/brain:init` writes your brain path to Claude Code's `settings.json` (auto-detects user vs project scope):
 
 ```json
 {
-  "paths": {
-    "data_root": "~/my-custom-path"
-  }
+  "env": { "REMEMBER_BRAIN_PATH": "~/remember" },
+  "permissions": { "additionalDirectories": ["~/remember"] }
 }
 ```
+
+- **User scope** (default): `~/.claude/settings.json` — works across all projects
+- **Project scope**: `.claude/settings.json` — project-specific brain path
+
+To change your brain location, edit `REMEMBER_BRAIN_PATH` in the appropriate `settings.json`, or re-run `/brain:init`.
 
 ---
 
