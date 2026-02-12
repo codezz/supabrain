@@ -55,6 +55,7 @@ Also ask: **"Install globally or for this project?"** to let the user override t
       "Bash(ls /chosen/path*)",
       "Bash(find /chosen/path*)",
       "Bash(cat /chosen/path*)",
+      "Bash(mkdir -p /chosen/path*)",
       "Bash(wc *)"
     ]
   }

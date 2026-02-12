@@ -23,6 +23,7 @@ Reads unprocessed Claude Code transcripts and routes valuable content into your 
 - Find files by pattern → use `Glob` tool (not `bash find`)
 - Search content → use `Grep` tool (not `bash grep`)
 - Read files → use `Read` tool (not `bash cat`)
+- Write/create files → use `Write` tool (not `bash echo >` or `bash tee`)
 
 Note: Python scripts (extract.py) still use Bash — that's expected. This applies to brain directory operations.
 

@@ -21,6 +21,7 @@ Your personal knowledge repository. Two ways to populate it:
 - Find files by pattern → use `Glob` tool (not `bash find`)
 - Search content → use `Grep` tool (not `bash grep`)
 - Read files → use `Read` tool (not `bash cat`)
+- Write/create files → use `Write` tool (not `bash echo >` or `bash tee`)
 
 ## Brain Location
 
