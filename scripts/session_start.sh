@@ -18,7 +18,7 @@ REMEMBER BRAIN LOADED. Brain: ${BRAIN_PATH}
 PERSONA (apply throughout session):
 ${PERSONA}
 
-Commands: /brain:process, /brain:status, 'remember this: ...'
+Commands: /remember:process, /remember:status, 'remember this: ...'
 EOF
 
 exit 0

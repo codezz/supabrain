@@ -93,4 +93,6 @@ Complete redesign from OpenClaw skill to Claude Code plugin.
 
 Legacy versions as OpenClaw skill. See git history for details.
 
+[1.5.0]: https://github.com/remember-md/remember/releases/tag/v1.5.0
+[1.4.6]: https://github.com/remember-md/remember/releases/tag/v1.4.6
 [1.0.0]: https://github.com/remember-md/remember/releases/tag/v1.0.0

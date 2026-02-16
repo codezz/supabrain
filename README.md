@@ -68,7 +68,7 @@ PARA + Zettelkasten structure that works with your existing workflow. Remember c
 Remember gives you two ways to build your AI-powered knowledge base:
 
 1. **Brain Dump** (immediate) — Say "remember this: ..." during any Claude Code session. The hook detects keywords and routes content to the correct location automatically.
-2. **Process Sessions** (on-demand) — Run `/brain:process` to extract valuable content from past Claude Code transcripts into your second brain.
+2. **Process Sessions** (on-demand) — Run `/remember:process` to extract valuable content from past Claude Code transcripts into your second brain.
 
 Your second brain is plain markdown files with wikilinks — zero-effort PKM that works with Obsidian, Logseq, or any text editor.
 
@@ -90,10 +90,10 @@ Your second brain is plain markdown files with wikilinks — zero-effort PKM tha
 /plugin install remember
 
 # 3. Initialize your second brain
-/brain:init
+/remember:init
 ```
 
-`/brain:init` creates your second brain directory structure and Persona file (default: `~/remember`), and configures permissions automatically.
+`/remember:init` creates your second brain directory structure and Persona file (default: `~/remember`), and configures permissions automatically.
 
 ---
 
@@ -123,9 +123,9 @@ Remember organizes your knowledge base using PARA + Zettelkasten:
 
 | Command | Description |
 |---------|-------------|
-| `/brain:init` | Initialize your second brain structure and config |
-| `/brain:process` | Process unprocessed Claude sessions into your brain |
-| `/brain:status` | Show brain statistics (file counts, recent activity) |
+| `/remember:init` | Initialize your second brain structure and config |
+| `/remember:process` | Process unprocessed Claude sessions into your brain |
+| `/remember:status` | Show brain statistics (file counts, recent activity) |
 | "remember this: ..." | Immediate brain dump via hook (zero-effort capture) |
 | "save this: ..." | Immediate brain dump via hook |
 
@@ -144,7 +144,7 @@ Remember organizes your knowledge base using PARA + Zettelkasten:
 
 ### Processing (Manual)
 
-`/brain:process` uses `scripts/extract.py` to:
+`/remember:process` uses `scripts/extract.py` to:
 1. Find unprocessed JSONL transcripts in `~/.claude/projects/`
 2. Extract clean user/assistant messages
 3. Route content to the right second brain location (People, Projects, Journal, Notes, Tasks)
@@ -152,13 +152,13 @@ Remember organizes your knowledge base using PARA + Zettelkasten:
 
 ### Persona — An AI That Learns How You Think
 
-`Persona.md` lives at your brain root and captures how you prefer to work — communication style, code preferences, workflow habits. It's loaded at every session start and updated during `/brain:process`. This adaptive persona system is a core part of what makes Remember unique.
+`Persona.md` lives at your brain root and captures how you prefer to work — communication style, code preferences, workflow habits. It's loaded at every session start and updated during `/remember:process`. This adaptive persona system is a core part of what makes Remember unique.
 
 ---
 
 ## Configuration
 
-`/brain:init` writes your brain path to Claude Code's `settings.json` (auto-detects user vs project scope):
+`/remember:init` writes your brain path to Claude Code's `settings.json` (auto-detects user vs project scope):
 
 ```json
 {
@@ -170,7 +170,7 @@ Remember organizes your knowledge base using PARA + Zettelkasten:
 - **User scope** (default): `~/.claude/settings.json` — works across all projects
 - **Project scope**: `.claude/settings.json` — project-specific brain path
 
-To change your brain location, edit `REMEMBER_BRAIN_PATH` in the appropriate `settings.json`, or re-run `/brain:init`.
+To change your brain location, edit `REMEMBER_BRAIN_PATH` in the appropriate `settings.json`, or re-run `/remember:init`.
 
 ---
 

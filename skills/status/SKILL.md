@@ -1,17 +1,16 @@
 ---
-name: brain:status
-description: Show Remember learning statistics and status
-user-invocable: true
+name: status
+description: Show Remember Second Brain statistics and status
 ---
 
-# /brain:status - Remember Status
+# /remember:status - Remember Status
 
 Displays brain statistics: file counts, recent activity, and brain health.
 
 ## Usage
 
 ```
-/brain:status
+/remember:status
 ```
 
 ## ⚠️ MANDATORY: Use Built-in Tools Only (NO Bash!)
@@ -38,7 +37,7 @@ Displays brain statistics: file counts, recent activity, and brain health.
 ### 1. Resolve Brain Path
 
 Read `$REMEMBER_BRAIN_PATH` env var, fallback `~/remember`. Use this as `{brain_path}`.
-If brain path doesn't exist → tell user to run `/brain:init`.
+If brain path doesn't exist → tell user to run `/remember:init`.
 
 ### 2. Show Brain Statistics
 

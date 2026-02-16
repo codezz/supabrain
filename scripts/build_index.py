@@ -244,7 +244,7 @@ def format_compact(brain: Path):
 def main():
     brain = _brain_path()
     if not brain.is_dir():
-        print(f"Brain not found at {brain}. Run /brain:init first.", file=sys.stderr)
+        print(f"Brain not found at {brain}. Run /remember:init first.", file=sys.stderr)
         sys.exit(1)
     
     compact = "--compact" in sys.argv

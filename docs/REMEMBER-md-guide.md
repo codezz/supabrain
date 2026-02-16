@@ -19,7 +19,7 @@
 
 | | REMEMBER.md | Persona.md |
 |---|---|---|
-| **Who writes it** | You (the user) | The system (`/brain:process`) |
+| **Who writes it** | You (the user) | The system (`/remember:process`) |
 | **Purpose** | What you WANT the brain to do | What the AI OBSERVES about you |
 | **Nature** | Prescriptive (instructions) | Descriptive (patterns) |
 | **Auto-modified** | Never | Yes, during processing |
@@ -56,7 +56,7 @@ Define what to always or never capture, and set thresholds.
 - For long sessions, prioritize: decisions > tasks > learnings > context
 ```
 
-**How it works:** During brain dumps and `/brain:process`, Claude checks these rules FIRST before applying default routing. "Never Capture" items are skipped even if they'd normally be captured. "Always Capture" items are saved even if they seem too minor by default.
+**How it works:** During brain dumps and `/remember:process`, Claude checks these rules FIRST before applying default routing. "Never Capture" items are skipped even if they'd normally be captured. "Always Capture" items are saved even if they seem too minor by default.
 
 ---
 
@@ -158,7 +158,7 @@ Control multilingual capture and processing behavior.
 - Romanian is fine for content/body text
 ```
 
-**How it works:** Injected into both brain dump hooks and `/brain:process` context. Tells Claude how to handle language in file names, headers, tags, and body content.
+**How it works:** Injected into both brain dump hooks and `/remember:process` context. Tells Claude how to handle language in file names, headers, tags, and body content.
 
 ---
 
@@ -209,7 +209,7 @@ Free-form space for anything else you want the brain to know.
 
 ## Getting Started
 
-After running `/brain:init`, you'll find a starter `REMEMBER.md` with empty sections:
+After running `/remember:init`, you'll find a starter `REMEMBER.md` with empty sections:
 
 ```markdown
 # REMEMBER.md
@@ -252,11 +252,11 @@ A: REMEMBER.md wins. It represents your explicit intent, which takes precedence 
 **Q: Can I delete sections I don't use?**
 A: Yes. Missing sections use defaults. You can also leave them empty — same effect.
 
-**Q: Will `/brain:process` modify my REMEMBER.md?**
+**Q: Will `/remember:process` modify my REMEMBER.md?**
 A: Never. REMEMBER.md is exclusively user-edited. Only Persona.md is auto-updated.
 
 **Q: How many tokens does REMEMBER.md use?**
-A: A moderate file (~50 lines) uses ~500 tokens. For brain dumps, only Capture Rules, Processing, Custom Types, and Language sections are injected (not the full file). For `/brain:process`, the full file is loaded (batch operation with larger token budget).
+A: A moderate file (~50 lines) uses ~500 tokens. For brain dumps, only Capture Rules, Processing, Custom Types, and Language sections are injected (not the full file). For `/remember:process`, the full file is loaded (batch operation with larger token budget).
 
 **Q: Can I have project-specific REMEMBER.md files?**
 A: Not yet — this is planned for a future release. Currently, one REMEMBER.md at your brain root applies globally.
