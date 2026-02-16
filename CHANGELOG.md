@@ -7,13 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.6] - 2026-02-16
+
 ### Added
 
-- **Routing intelligence** — AI-driven classification for tasks (urgent/important/backlog), areas vs projects, persona learning, and resource capture
-- Helper scripts: `persona_utils.py`, `task_utils.py` (replaced keyword-based detection with AI semantic understanding)
+- **`scripts/build_index.py`** — New knowledge index builder that scans the brain and outputs formatted markdown tables (People, Projects, Areas, Notes, Tasks counts, Journal stats). Supports `--compact` mode for hook injection.
+- **Knowledge-aware pipeline** — Both `/brain:process` and brain dump now build a Resolution Map against the knowledge index before writing, preventing duplicates and enabling smart entity linking.
+- **Edit-first updates** — Skills now instruct the AI to use the `Edit` tool for surgical updates to existing files instead of rewriting entire files.
+- **Pattern detection in Persona** — Enhanced behavioral pattern extraction: user corrections, stated preferences, repeated workflows, communication style, decision criteria, code style.
 
 ### Changed
 
+- **`skills/process/SKILL.md`** — Complete rewrite. Now structured as 5 clear steps: (1) build knowledge index, (2) find unprocessed, (3) extract, (4) process with Resolution Map + Edit/Write routing, (5) mark & report. Reduced from ~500 lines of mixed concerns to focused pipeline.
+- **`skills/remember/SKILL.md`** — Complete rewrite. Brain dump now runs `build_index.py --compact` first, builds Resolution Map, uses Edit tool for existing files and Write for new ones.
+- **`scripts/user_prompt.sh`** — Hook now runs `build_index.py --compact` to inject full knowledge index (not just People/Projects/Areas names) into brain dump context.
 - Task and persona detection now uses AI semantic analysis instead of regex patterns (multilingual support built-in)
 
 ## [1.0.0] - 2026-02-08
