@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.5.1] - 2026-02-16
+
+### Changed
+
+- **Skills refactored for Claude Code best practices:**
+  - Progressive disclosure: split SKILL.md into concise instructions + reference.md (935→465 lines, -50%)
+  - Skill names fixed: `brain:init`→`init`, `brain:process`→`process`, `brain:status`→`status` (colons invalid per spec, avoids double-namespace)
+  - Commands: `/remember:init`, `/remember:process`, `/remember:status`
+  - Removed invalid `user-invocable` frontmatter (not in official spec)
+  - Shortened `remember` skill description to single line
+
+### Removed
+
+- **`brain-session` skill** — redundant with `session_start.sh` hook (same functionality)
+
+### Fixed
+
+- `config.defaults.json` version mismatch
+- Missing CHANGELOG release links for v1.4.6 and v1.5.0
+
 ## [1.5.0] - 2026-02-16
 
 ### Added
@@ -93,6 +113,7 @@ Complete redesign from OpenClaw skill to Claude Code plugin.
 
 Legacy versions as OpenClaw skill. See git history for details.
 
+[1.5.1]: https://github.com/remember-md/remember/releases/tag/v1.5.1
 [1.5.0]: https://github.com/remember-md/remember/releases/tag/v1.5.0
 [1.4.6]: https://github.com/remember-md/remember/releases/tag/v1.4.6
 [1.0.0]: https://github.com/remember-md/remember/releases/tag/v1.0.0
