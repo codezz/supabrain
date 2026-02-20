@@ -9,6 +9,6 @@
     "url": "https://github.com/remember-md/remember"
   },
   "openclaw": {
-    "extensions": ["./index.js"]
+    "type": "plugin"
   }
 }
