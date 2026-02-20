@@ -1,4 +1,5 @@
 ---
+name: remember:init
 description: Initialize Remember Second Brain structure and configuration
 ---
 

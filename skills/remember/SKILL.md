@@ -1,4 +1,5 @@
 ---
+name: remember
 description: Capture knowledge to your Second Brain when triggered by "remember this", "save this", or "brain dump"
 ---
 
