@@ -84,6 +84,58 @@ Use Edit to append new content to that section.
 
 ---
 
+## Chronology Examples
+
+**Old session (Feb 5) processed after newer session (Feb 11):**
+```markdown
+# Journal/2026-02-05.md
+## Project X (from Feb 11 processing)
+- Work done feb 11
+
+## Additional context (from Feb 5 OpenClaw session - appended)
+- Extra details from old session
+```
+
+**Project log — chronological insert:**
+```markdown
+### 2026-02-12
+- Recent work
+
+### 2026-02-05  ← INSERT here (old session, chronological position)
+- Details from Feb 5 session
+
+### 2026-02-03
+- Older work
+```
+
+---
+
+## Report Template
+
+```
+Brain updated from {N} sessions (SESSION_DATE):
+
+Created:
+  - People/john-smith.md (new)
+  - Notes/decision-api-architecture.md (new)
+
+Updated (append-only, anti-conflict verified):
+  - Journal/2026-02-09.md (+2 sections, appended)
+  - Projects/myproject/myproject.md (log entry inserted chronologically)
+  - Tasks/tasks.md (+3 tasks)
+  - Persona.md (+2 evidence lines)
+
+Skipped (newer data exists):
+  - Journal/2026-02-15.md (last modified 2026-02-18, session 2026-02-10)
+
+Processed: {N} sessions
+Remaining unprocessed: {M}
+```
+
+Always mention: session date, whether append/expand (old sessions), skipped files.
+
+---
+
 ## Templates (Write Tool — New Files)
 
 ### New Person
