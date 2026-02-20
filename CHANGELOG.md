@@ -5,6 +5,18 @@ All notable changes to Remember will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- **Anti-conflict rules for processing old sessions** — Critical safety feature in `/remember:process` skill
+  - Core Principles section documenting never overwrite newer data with old sessions
+  - Processing order recommendation: newest-first to minimize conflicts
+  - Detailed anti-conflict rules in Step 4c with git log checks for file modification dates
+  - Safe operations documentation: append/expand only, never replace/delete
+  - Enhanced report summary showing append-only operations and skipped files
+  - Prevents data loss when processing historical session backlog
+
 ## [2.0.4] - 2026-02-20
 
 ### Fixed
