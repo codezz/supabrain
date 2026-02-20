@@ -9,20 +9,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **Anti-conflict rules for processing old sessions** — Critical safety feature in `/remember:process` skill
-  - **Chronology check:** Each session individually verifies if file was modified after session date
-  - **Automatic mode selection:** `file_last_modified > session_date` → append-only mode
-  - **Universal application:** Works for old backlog, re-processing, multi-source overlap (Claude Code + OpenClaw)
-  - Detailed git log checks for file modification dates
-  - Safe operations documentation: append/expand only in append-only mode
-  - Enhanced report summary showing append-only operations and skipped files
-  - Prevents data loss when processing historical session backlog
+- **Simple chronology check for old sessions** — Prevents data loss when processing backlog
+  - `IF session_date < file_last_modified → append context`
+  - `ELSE → normal update`
+  - Old sessions append missing context (don't replace existing)
+  - New sessions update normally (can replace/restructure)
+  - Works for: old backlog, multi-source overlap (Claude Code + OpenClaw), re-processing
 
 ### Changed
 
-- **Simplified processing logic** — Removed "newest-first order" recommendation
-  - Processing order doesn't matter when each session checks chronology individually
-  - Clearer examples showing realistic scenarios (old backlog after new sessions, source overlap)
+- **Simplified anti-conflict logic** — Removed complex mode selection, deduplication checks
+  - Clear IF/ELSE rule based on chronology
+  - "When in doubt: append" principle
+  - No content checking, no duplicate detection — just simple chronology
+  - Clearer examples (old session appending after newer session processed)
 
 ## [2.0.4] - 2026-02-20
 
